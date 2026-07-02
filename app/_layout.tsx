@@ -60,3 +60,11 @@ function Navbar() {
   );
 }
 
+export default function RootLayout() {
+  const { user, loading, loadUser } = useAuthStore();
+  const segments = useSegments();
+
+  useEffect(() => {
+    loadUser();
+  }, [loadUser]);
+
