@@ -68,3 +68,36 @@ export default function RootLayout() {
     loadUser();
   }, [loadUser]);
 
+  // Route protection gatekeeper
+  useEffect(() => {
+    if (loading) return;
+
+    const inAuthGroup = segments[0] === 'login' || segments[0] === 'auth';
+
+    if (!user && !inAuthGroup) {
+      // Redirect unauthenticated user to login
+      router.replace('/login');
+    } else if (user && inAuthGroup) {
+      // Redirect logged-in user away from auth screens
+      router.replace('/');
+    }
+  }, [user, loading, segments]);
+
+  if (loading) {
+    return (
+      <View className="flex-1 bg-slate-950 items-center justify-center">
+        <ActivityIndicator size="large" color="#6366f1" />
+      </View>
+    );
+  }
+
+  return (
+    <SafeAreaView className="flex-1 bg-slate-950">
+      <Navbar />
+      {/* Stack renders the active screen matching the current file route */}
+      <View className="flex-1 px-4 py-6">
+        <Stack screenOptions={{ headerShown: false }} />
+      </View>
+    </SafeAreaView>
+  );
+}
