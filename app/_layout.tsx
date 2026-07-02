@@ -14,4 +14,19 @@ function Navbar() {
     router.replace('/login');
   };
 
-  
+  return (
+    <View className="border-b border-slate-800 bg-slate-950/80 px-4 h-16 flex-row items-center justify-between">
+      <Link href="/" asChild>
+        <Pressable className="flex-row items-center gap-2">
+          <Swords size={24} color="#818cf8" />
+          <Text className="font-bold text-xl text-indigo-400">Shik-Shak</Text>
+        </Pressable>
+      </Link>
+
+      <View className="flex-row items-center gap-4">
+        <Link href="/practice" asChild>
+          <Pressable className="flex-row items-center gap-1.5 px-3 py-1.5 rounded-lg active:bg-slate-800">
+            <Brain size={16} color="#f8fafc" />
+            <Text className="text-slate-100 text-sm font-medium">Practice</Text>
+          </Pressable>
+        </Link>
