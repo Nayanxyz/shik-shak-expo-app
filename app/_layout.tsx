@@ -30,3 +30,33 @@ function Navbar() {
             <Text className="text-slate-100 text-sm font-medium">Practice</Text>
           </Pressable>
         </Link>
+
+        <Link href="/battle/lobby" asChild>
+          <Pressable className="flex-row items-center gap-1.5 px-3 py-1.5 rounded-lg active:bg-slate-800">
+            <Swords size={16} color="#f8fafc" />
+            <Text className="text-slate-100 text-sm font-medium">Battle</Text>
+          </Pressable>
+        </Link>
+
+        {user ? (
+          <View className="flex-row items-center gap-3">
+            <View className="flex-row items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800">
+              <User size={16} color="#818cf8" />
+              <Text className="text-slate-300 text-sm">{user.username}</Text>
+            </View>
+            <Pressable onPress={handleSignOut} className="p-2 rounded-lg active:bg-slate-800">
+              <LogOut size={16} color="#94a3b8" />
+            </Pressable>
+          </View>
+        ) : (
+          <Link href="/login" asChild>
+            <Pressable className="px-4 py-1.5 rounded-lg bg-indigo-600 active:bg-indigo-500">
+              <Text className="text-sm font-medium text-white">Sign In</Text>
+            </Pressable>
+          </Link>
+        )}
+      </View>
+    </View>
+  );
+}
+
