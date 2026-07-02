@@ -6,6 +6,8 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "shik-shak",
+    "entryPoint": "expo-router/entry",
     "ios": {
       "supportsTablet": true
     },
