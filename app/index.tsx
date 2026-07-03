@@ -9,3 +9,10 @@ const features = [
   { icon: <Clock size={24} color="#818cf8" />, title: 'Time Bonuses', desc: 'Answer fast for extra points — speed matters!' },
 ];
 
+const subjects = [
+  { id: 'MATH', name: 'Mathematics', icon: '∫', bg: 'bg-cyan-950/50', iconColor: 'text-cyan-400' },
+  { id: 'PHYSICS', name: 'Physics', icon: '⚡', bg: 'bg-orange-950/50', iconColor: 'text-orange-400' },
+  { id: 'CHEMISTRY', name: 'Chemistry', icon: '⚗️', bg: 'bg-emerald-950/50', iconColor: 'text-emerald-400' },
+  { id: 'BIOLOGY', name: 'Biology', icon: '🧬', bg: 'bg-rose-950/50', iconColor: 'text-rose-400' },
+];
+
