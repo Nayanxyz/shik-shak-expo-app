@@ -78,3 +78,19 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        {/* Features */}
+        <View className="px-4 gap-4">
+          {features.map((f) => (
+            <View
+              key={f.title}
+              className="p-6 rounded-2xl bg-slate-900/50 border border-slate-800"
+            >
+              <View className="w-10 h-10 rounded-lg bg-indigo-500/20 items-center justify-center mb-4">
+                {f.icon}
+              </View>
+              <Text className="font-semibold text-white mb-2">{f.title}</Text>
+              <Text className="text-slate-400 text-sm leading-relaxed">{f.desc}</Text>
+            </View>
+          ))}
+        </View>
+
