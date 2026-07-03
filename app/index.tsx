@@ -55,3 +55,26 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        {/* Subjects */}
+        <View className="px-4">
+          <Text className="text-2xl font-bold text-center text-white mb-6">Choose Your Subject</Text>
+          <View className="flex-row flex-wrap justify-between gap-y-4">
+            {subjects.map((s) => (
+              <Pressable
+                key={s.name}
+                onPress={() => router.push({ pathname: '/practice', params: { subject: s.id } })}
+                className={`w-[48%] p-5 rounded-2xl border border-white/10 active:border-white/20 ${s.bg}`}
+              >
+                <View className="w-10 h-10 rounded-xl bg-white/10 items-center justify-center mb-4">
+                  <Text className={`text-2xl ${s.iconColor}`}>{s.icon}</Text>
+                </View>
+                <Text className="font-bold text-lg text-white">{s.name}</Text>
+                <Text className="text-slate-400 text-xs mt-1">JEE/NEET level</Text>
+                <View className="mt-4">
+                  <ChevronRight size={20} color="#64748b" />
+                </View>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+
