@@ -94,3 +94,25 @@ export default function HomeScreen() {
           ))}
         </View>
 
+        {/* Stats Banner */}
+        <View className="mx-4 py-8 px-6 rounded-2xl bg-indigo-950 border border-indigo-500/20">
+          <View className="flex-row flex-wrap justify-between gap-y-8">
+            {[
+              { label: 'Questions Generated', value: '∞', sub: 'AI-powered' },
+              { label: 'Subjects', value: '4', sub: 'Math, Physics, Chem, Bio' },
+              { label: 'Battle Players', value: '4', sub: 'Max per room' },
+              { label: 'Time Limit', value: '60s', sub: 'Per question' },
+            ].map((stat) => (
+              <View key={stat.label} className="w-[45%] items-center text-center">
+                <Text className="text-3xl font-bold text-indigo-300">{stat.value}</Text>
+                <Text className="text-sm font-medium text-white mt-1 text-center">{stat.label}</Text>
+                <Text className="text-xs text-slate-400 text-center">{stat.sub}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+      </View>
+    </ScrollView>
+  );
+}
