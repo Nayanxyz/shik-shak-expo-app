@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { View, Text, Pressable, ActivityIndicator, SafeAreaView } from 'react-native';
+import { View, Text, Pressable, ActivityIndicator } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack, Link, router, useSegments } from 'expo-router';
 import { Swords, Brain, LogOut, User } from 'lucide-react-native';
 import { useAuthStore } from '../store/authStore';
