@@ -6,3 +6,15 @@ import { supabase } from '../../lib/supabase';
 
 export default function AuthCallbackScreen() {
   const loadUser = useAuthStore((s) => s.loadUser);
+
+  useEffect(() => {
+    const handleAuthCallback = async () => {
+      // Supabase handles the URL session extraction natively
+      const { data: { session }, error } = await supabase.auth.getSession();
+      
+      if (error) {
+        console.error('Auth callback error:', error);
+        router.replace('/login');
+        return;
+      }
+
