@@ -38,3 +38,9 @@ export default function AuthCallbackScreen() {
     handleAuthCallback();
   }, [loadUser]);
 
+  return (
+    <View className="flex-1 bg-slate-950 items-center justify-center">
+      <ActivityIndicator size="large" color="#6366f1" />
+    </View>
+  );
+}
