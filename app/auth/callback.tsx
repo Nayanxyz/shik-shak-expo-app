@@ -18,3 +18,23 @@ export default function AuthCallbackScreen() {
         return;
       }
 
+      if (session) {
+        await loadUser();
+        router.replace('/');
+      } else {
+        // Wait for session to be established if delayed
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(
+          async (event, session) => {
+            if (event === 'SIGNED_IN' && session) {
+              await loadUser();
+              router.replace('/');
+            }
+          }
+        );
+        return () => subscription.unsubscribe();
+      }
+    };
+
+    handleAuthCallback();
+  }, [loadUser]);
+
