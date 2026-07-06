@@ -124,3 +124,23 @@ function getRandomChapters(subject: string, count: number = 5): string[] {
   return [...chapters].sort(() => Math.random() - 0.5).slice(0, count).map(c => c.id);
 }
 
+export default function PracticeScreen() {
+  const params = useLocalSearchParams();
+  // Safe extraction of params in case they are arrays
+  const initialSubject = Array.isArray(params.subject) ? params.subject[0] : params.subject;
+
+  const [step, setStep] = useState<'select' | 'loading' | 'playing'>('select');
+  const [subject, setSubject] = useState<string>(initialSubject || 'MATH');
+  const [difficulty, setDifficulty] = useState<string>('LOW');
+  const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
+  const [session, setSession] = useState<any>(null);
+  const [currentQ, setCurrentQ] = useState(0);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [timeRemaining, setTimeRemaining] = useState(60);
+  const [showResult, setShowResult] = useState(false);
+  const [result, setResult] = useState<any>(null);
+  const [error, setError] = useState('');
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
+  
+  const timerActiveRef = useRef(false);
+
