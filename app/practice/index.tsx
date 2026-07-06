@@ -218,3 +218,21 @@ export default function PracticeScreen() {
     }
   };
 
+  const handleLeavePractice = async () => {
+    if (!session?.session_id) {
+      router.replace('/');
+      return;
+    }
+    try {
+      await apiFetch('/api/v1/practice/finish', {
+        method: 'POST',
+        body: JSON.stringify({ session_id: session.session_id }),
+      });
+    } catch (e) {
+      console.error("Failed to finish practice session cleanly:", e);
+    } finally {
+      setShowExitConfirm(false);
+      router.replace('/');
+    }
+  };
+
