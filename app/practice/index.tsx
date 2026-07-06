@@ -173,3 +173,20 @@ export default function PracticeScreen() {
     timerActiveRef.current = true;
     
     // Explicitly typed as ReturnType<typeof setInterval> for RN/NodeJS compatibility
+    const timer: ReturnType<typeof setInterval> = setInterval(() => {
+      setTimeRemaining(t => {
+        if (t <= 1) {
+          clearInterval(timer);
+          timerActiveRef.current = false;
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+    
+    return () => {
+      clearInterval(timer);
+      timerActiveRef.current = false;
+    }
+  }, [step, showResult, timeRemaining, handleSubmit]);
+
