@@ -196,3 +196,25 @@ export default function PracticeScreen() {
 
   const randomizeChapters = () => setSelectedChapters(getRandomChapters(subject, 5));
 
+  const startPractice = async () => {
+    if (selectedChapters.length !== 5) return;
+    setStep('loading');
+    setError('');
+    try {
+      const chapterMix = selectedChapters.map(id => ({ id, name: MASTER_CHAPTER_DATABASE[subject].find(c => c.id === id)?.name || id }));
+      const data = await apiFetch('/api/v1/practice/start', {
+        method: 'POST',
+        body: JSON.stringify({ subject, difficulty, chapter_mix: chapterMix }),
+      });
+      setSession(data);
+      setCurrentQ(0);
+      setTimeRemaining(60);
+      setSelectedOption(null);
+      setShowResult(false);
+      setStep('playing');
+    } catch (e: any) {
+      setError(e.message || "Failed to start session.");
+      setStep('select');
+    }
+  };
+
