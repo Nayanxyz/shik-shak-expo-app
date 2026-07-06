@@ -144,3 +144,18 @@ export default function PracticeScreen() {
   
   const timerActiveRef = useRef(false);
 
+  const handleSubmit = useCallback(async (option: string | null) => {
+    if (!session || showResult) return;
+    try {
+      const data = await apiFetch('/api/v1/practice/answer', {
+        method: 'POST',
+        body: JSON.stringify({ session_id: session.session_id, question_number: currentQ + 1, selected_option: option }),
+      });
+      setResult(data);
+      setShowResult(true);
+      timerActiveRef.current = false;
+    } catch (e) {
+      console.error(e);
+    }
+  }, [session, showResult, currentQ]);
+
