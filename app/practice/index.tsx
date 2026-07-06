@@ -159,3 +159,17 @@ export default function PracticeScreen() {
     }
   }, [session, showResult, currentQ]);
 
+  useEffect(() => {
+    if (step !== 'playing' || showResult) {
+      timerActiveRef.current = false;
+      return;
+    }
+    if (timeRemaining <= 0) {
+      timerActiveRef.current = false;
+      handleSubmit(null);
+      return;
+    }
+    if (timerActiveRef.current) return;
+    timerActiveRef.current = true;
+    
+    // Explicitly typed as ReturnType<typeof setInterval> for RN/NodeJS compatibility
