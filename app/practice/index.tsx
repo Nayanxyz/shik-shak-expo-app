@@ -190,3 +190,9 @@ export default function PracticeScreen() {
     }
   }, [step, showResult, timeRemaining, handleSubmit]);
 
+  const toggleChapter = (id: string) => {
+    setSelectedChapters(prev => prev.includes(id) ? prev.filter(c => c !== id) : (prev.length >= 5 ? prev : [...prev, id]));
+  };
+
+  const randomizeChapters = () => setSelectedChapters(getRandomChapters(subject, 5));
+
