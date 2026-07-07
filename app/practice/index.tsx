@@ -358,3 +358,50 @@ export default function PracticeScreen() {
         </View>
       )}
 
+      {step === 'playing' && activeQuestion && (
+        <ScrollView className="flex-1 px-4 py-6" contentContainerStyle={{ paddingBottom: 40 }}>
+          <View className="flex-row items-center justify-between mb-6">
+            <View className="flex-row items-center gap-2">
+              <Brain size={16} color="#94a3b8" />
+              <Text className="text-sm text-slate-400">Q {currentQ + 1} of {session.total_questions}</Text>
+            </View>
+            <View className={`flex-row items-center gap-2 px-4 py-2 rounded-full ${timeRemaining <= 10 ? 'bg-red-900/50' : 'bg-slate-800'}`}>
+              <Clock size={16} color={timeRemaining <= 10 ? '#fca5a5' : '#e2e8f0'} />
+              <Text className={`font-mono text-sm ${timeRemaining <= 10 ? 'text-red-300' : 'text-slate-200'}`}>{timeRemaining}s</Text>
+            </View>
+            <Pressable onPress={() => setShowExitConfirm(true)} className="flex-row items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700">
+              <LogOut size={16} color="#94a3b8" />
+            </Pressable>
+          </View>
+          
+          <View className="h-2 bg-slate-800 rounded-full overflow-hidden mb-6">
+            <View className="h-full bg-indigo-500 rounded-full" style={{ width: `${((currentQ + 1) / session.total_questions) * 100}%` }} />
+          </View>
+
+          <View className="p-4 rounded-2xl bg-slate-900 border border-slate-800 mb-6">
+            <MathHtml html={activeQuestion.question_text} />
+          </View>
+
+          <View className="space-y-3 mb-6 gap-3">
+            {activeQuestion.options.map((opt: any) => (
+              <Pressable key={opt.id} onPress={() => !showResult && setSelectedOption(opt.id)} disabled={showResult}
+                className={`w-full p-4 rounded-xl border flex-row items-center ${
+                  showResult 
+                    ? (opt.id === result?.correct_option ? 'border-green-500 bg-green-900/30' : (opt.id === selectedOption ? 'border-red-500 bg-red-900/30' : 'border-slate-800 opacity-50')) 
+                    : (selectedOption === opt.id ? 'border-indigo-500 bg-indigo-900/30' : 'border-slate-700 bg-slate-900')
+                }`}
+              >
+                <View className={`w-8 h-8 rounded-lg items-center justify-center mr-3 ${
+                  showResult 
+                    ? (opt.id === result?.correct_option ? 'bg-green-500' : (opt.id === selectedOption ? 'bg-red-500' : 'bg-slate-800')) 
+                    : (selectedOption === opt.id ? 'bg-indigo-500' : 'bg-slate-800')
+                }`}>
+                  <Text className="font-bold text-white text-sm">{opt.id}</Text>
+                </View>
+                <View className="flex-1 pointer-events-none">
+                  <MathHtml html={opt.text} />
+                </View>
+              </Pressable>
+            ))}
+          </View>
+
