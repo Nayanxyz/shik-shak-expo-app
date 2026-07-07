@@ -297,3 +297,20 @@ export default function PracticeScreen() {
             </View>
           </View>
 
+          <View className="mb-6">
+            <Text className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Difficulty</Text>
+            <View className="flex-row gap-3">
+              {DIFFICULTIES.map(d => (
+                <Pressable key={d} onPress={() => setDifficulty(d)}
+                  className={`flex-1 p-4 rounded-xl border ${difficulty === d ? (d === 'LOW' ? 'border-green-500 bg-green-900/50' : 'border-red-500 bg-red-900/50') : 'border-slate-700 bg-slate-900'}`}
+                >
+                  <Zap size={20} color={difficulty === d ? (d === 'LOW' ? '#4ade80' : '#f87171') : '#94a3b8'} />
+                  <Text className={`font-semibold mt-2 ${difficulty === d ? (d === 'LOW' ? 'text-green-300' : 'text-red-300') : 'text-slate-300'}`}>
+                    {d === 'LOW' ? 'Foundation' : 'Advanced'}
+                  </Text>
+                  <Text className="text-xs text-slate-400 mt-1">{d === 'LOW' ? '2-3 min per question' : '5-8 min per question'}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+
