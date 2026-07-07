@@ -62,3 +62,32 @@ export default function LoginScreen() {
     }
   };
 
+  return (
+    <View className="flex-1 bg-slate-950 justify-center px-4">
+      <View className="w-full max-w-md mx-auto space-y-6">
+        
+        <View className="items-center mb-6">
+          <Text className="text-3xl font-bold text-indigo-400">
+            {isSignUp ? 'Create Account' : 'Welcome Back'}
+          </Text>
+          <Text className="text-slate-400 mt-2">
+            {isSignUp ? 'Join the battle arena' : 'Sign in to continue'}
+          </Text>
+        </View>
+
+        <Pressable
+          onPress={handleGoogle}
+          className="w-full flex-row items-center justify-center gap-3 py-3 rounded-xl bg-slate-800 active:bg-slate-700 border border-slate-700"
+        >
+          {/* Replaced the broken Lucide icon with a simple stylized text fallback */}
+          <Text className="text-red-400 font-bold text-lg">G</Text>
+          <Text className="text-slate-100 font-medium">Continue with Google</Text>
+        </Pressable>
+
+        <View className="relative py-4 items-center justify-center">
+          <View className="absolute w-full border-t border-slate-700" />
+          <View className="bg-slate-950 px-2">
+            <Text className="text-slate-400 text-sm">or</Text>
+          </View>
+        </View>
+
