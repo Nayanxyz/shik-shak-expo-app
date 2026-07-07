@@ -50,3 +50,15 @@ export default function LoginScreen() {
     setLoading(false);
   };
 
+  const handleGoogle = async () => {
+    setError('');
+    
+    if (Platform.OS !== 'web') {
+      // TODO: Implement @react-native-google-signin/google-signin here
+      console.log("Native Google Sign-In needs to be configured");
+    } else {
+      const { error } = await signInWithGoogle();
+      if (error) setError(error.message);
+    }
+  };
+
