@@ -314,3 +314,39 @@ export default function PracticeScreen() {
             </View>
           </View>
 
+          <View className="mb-6 flex-1">
+            <View className="flex-row items-center justify-between mb-3">
+              <Text className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Chapters ({selectedChapters.length}/5)</Text>
+              <Pressable onPress={randomizeChapters} className="flex-row items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-900/50 border border-indigo-500/30">
+                <Dices size={16} color="#818cf8" />
+                <Text className="text-indigo-300 text-sm">Random 5</Text>
+              </Pressable>
+            </View>
+            <View className="space-y-2 gap-2">
+              {MASTER_CHAPTER_DATABASE[subject].map(ch => (
+                <Pressable key={ch.id} onPress={() => toggleChapter(ch.id)}
+                  className={`p-4 rounded-xl border flex-row items-center ${selectedChapters.includes(ch.id) ? 'border-indigo-500 bg-indigo-900/50' : 'border-slate-700 bg-slate-900'}`}
+                >
+                  <View className={`w-5 h-5 rounded border items-center justify-center mr-3 ${selectedChapters.includes(ch.id) ? 'bg-indigo-500 border-indigo-500' : 'border-slate-600'}`}>
+                    {selectedChapters.includes(ch.id) && <Text className="text-white text-xs font-bold">✓</Text>}
+                  </View>
+                  <Text className={`flex-1 ${selectedChapters.includes(ch.id) ? 'text-indigo-300' : 'text-slate-300'}`}>{ch.name}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+
+          {error ? (
+            <View className="p-4 rounded-xl bg-red-900/50 border border-red-500/20 mb-4">
+              <Text className="text-red-300 text-sm">{error}</Text>
+            </View>
+          ) : null}
+
+          <Pressable onPress={startPractice} disabled={selectedChapters.length !== 5}
+            className={`w-full py-4 rounded-xl items-center ${selectedChapters.length === 5 ? 'bg-indigo-600 active:bg-indigo-500' : 'bg-slate-800'}`}
+          >
+            <Text className={`font-semibold text-lg ${selectedChapters.length === 5 ? 'text-white' : 'text-slate-500'}`}>Start Practice Session</Text>
+          </Pressable>
+        </ScrollView>
+      )}
+
