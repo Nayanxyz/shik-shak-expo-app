@@ -405,3 +405,33 @@ export default function PracticeScreen() {
             ))}
           </View>
 
+          {!showResult ? (
+            <Pressable onPress={() => handleSubmit(selectedOption)} disabled={!selectedOption}
+              className={`w-full py-4 rounded-xl items-center ${selectedOption ? 'bg-indigo-600 active:bg-indigo-500' : 'bg-slate-800'}`}
+            >
+              <Text className={`font-semibold text-lg ${selectedOption ? 'text-white' : 'text-slate-500'}`}>Submit Answer</Text>
+            </Pressable>
+          ) : (
+            <View className="space-y-4 gap-4">
+              <View className={`p-4 rounded-xl border flex-row gap-3 ${result?.is_correct ? 'border-green-500/30 bg-green-900/30' : 'border-red-500/30 bg-red-900/30'}`}>
+                {result?.is_correct ? <CheckCircle size={24} color="#4ade80" /> : <XCircle size={24} color="#f87171" />}
+                <View className="flex-1">
+                  <Text className={`font-semibold text-lg ${result?.is_correct ? 'text-green-300' : 'text-red-300'}`}>
+                    {result?.is_correct ? `Correct! +${result.score} points` : 'Incorrect (-1 point)'}
+                  </Text>
+                  <View className="mt-2 pointer-events-none">
+                     <MathHtml html={result?.explanation || ''} />
+                  </View>
+                </View>
+              </View>
+              <Pressable onPress={nextQuestion} className="w-full py-4 rounded-xl bg-indigo-600 active:bg-indigo-500 flex-row items-center justify-center gap-2">
+                <Text className="font-semibold text-lg text-white">{currentQ + 1 >= session.total_questions ? 'View Results' : 'Next Question'}</Text>
+                <ArrowRight size={20} color="#ffffff" />
+              </Pressable>
+            </View>
+          )}
+        </ScrollView>
+      )}
+    </View>
+  );
+}
