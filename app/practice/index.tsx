@@ -350,3 +350,11 @@ export default function PracticeScreen() {
         </ScrollView>
       )}
 
+      {step === 'loading' && (
+        <View className="flex-1 justify-center items-center px-4">
+          <ActivityIndicator size="large" color="#6366f1" className="mb-6" />
+          <Text className="text-xl font-semibold text-white">Generating Questions...</Text>
+          <Text className="text-slate-400 mt-2 text-center">Shik Shak AI is crafting your personalized exam</Text>
+        </View>
+      )}
+
