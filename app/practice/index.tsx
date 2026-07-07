@@ -236,3 +236,18 @@ export default function PracticeScreen() {
     }
   };
 
+  const nextQuestion = () => {
+    if (currentQ + 1 >= session.total_questions) {
+      // Changed to template literal format to bypass strict TS router matching issues
+      router.replace(`/practice/results?sessionId=${session.session_id}`);
+      return;
+    }
+    setCurrentQ(prev => prev + 1);
+    setTimeRemaining(60);
+    setSelectedOption(null);
+    setShowResult(false);
+    setResult(null);
+  };
+
+  const activeQuestion = session?.questions?.[currentQ];
+
