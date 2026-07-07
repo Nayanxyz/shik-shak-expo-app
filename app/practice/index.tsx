@@ -276,3 +276,24 @@ export default function PracticeScreen() {
         </View>
       </Modal>
 
+      {step === 'select' && (
+        <ScrollView className="flex-1" contentContainerStyle={{ padding: 16, paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
+          <View className="items-center mb-8">
+            <Text className="text-3xl font-bold text-white mb-2">Practice Mode</Text>
+            <Text className="text-slate-400 text-center">Select your subject, difficulty, and 5 chapters</Text>
+          </View>
+
+          <View className="mb-6">
+            <Text className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Subject</Text>
+            <View className="flex-row flex-wrap justify-between gap-y-3">
+              {SUBJECTS.map(s => (
+                <Pressable key={s} onPress={() => { setSubject(s); setSelectedChapters([]); }}
+                  className={`w-[48%] p-4 rounded-xl border ${subject === s ? 'border-indigo-500 bg-indigo-900/50' : 'border-slate-700 bg-slate-900'}`}
+                >
+                  <BookOpen size={20} color={subject === s ? '#818cf8' : '#94a3b8'} />
+                  <Text className={`font-semibold mt-2 ${subject === s ? 'text-indigo-300' : 'text-slate-300'}`}>{s}</Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+
