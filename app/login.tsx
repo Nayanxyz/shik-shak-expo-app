@@ -142,3 +142,29 @@ export default function LoginScreen() {
             </Pressable>
           </View>
 
+          {error ? (
+            <View className="p-3 rounded-lg bg-red-500/10 border border-red-500/20">
+              <Text className="text-red-400 text-sm">{error}</Text>
+            </View>
+          ) : null}
+
+          <Pressable
+            onPress={handleEmailAuth}
+            disabled={loading}
+            className={`w-full py-3 rounded-xl flex-row items-center justify-center gap-2 ${
+              loading ? 'bg-slate-800' : 'bg-indigo-600 active:bg-indigo-500'
+            }`}
+          >
+            {loading ? (
+              <ActivityIndicator color="#cbd5e1" />
+            ) : (
+              <>
+                <Text className={`font-semibold ${loading ? 'text-slate-500' : 'text-white'}`}>
+                  {isSignUp ? 'Sign Up' : 'Sign In'}
+                </Text>
+                <ArrowRight size={16} color={loading ? '#64748b' : '#ffffff'} />
+              </>
+            )}
+          </Pressable>
+        </View>
+
