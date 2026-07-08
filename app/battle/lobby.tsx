@@ -127,3 +127,25 @@ function getRandomChapters(subject: string, count: number = 5): string[] {
   return shuffled.slice(0, count).map(c => c.id);
 }
 
+export default function BattleLobbyScreen() {
+  const store = useGameStore();
+  const authUser = useAuthStore((s) => s.user);
+
+  const [mode, setMode] = useState<'menu' | 'create' | 'join'>('menu');
+  const [subject, setSubject] = useState('MATH');
+  const [difficulty, setDifficulty] = useState('LOW');
+  const [selectedChapters, setSelectedChapters] = useState<string[]>([]);
+  const [maxPlayers, setMaxPlayers] = useState(4);
+  const [timePerQuestion, setTimePerQuestion] = useState(60);
+  const [playerName, setPlayerName] = useState(authUser?.username || '');
+  const [joinCode, setJoinCode] = useState('');
+  const [copied, setCopied] = useState(false);
+  const [error, setError] = useState('');
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [showExitConfirm, setShowExitConfirm] = useState(false);
+  const [disconnected, setDisconnected] = useState(false);
+  const [questionsReady, setQuestionsReady] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+
+  const listenersAttached = useRef(false);
+
