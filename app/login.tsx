@@ -168,3 +168,18 @@ export default function LoginScreen() {
           </Pressable>
         </View>
 
+        <View className="flex-row justify-center items-center mt-4 gap-1">
+          <Text className="text-slate-400 text-sm">
+            {isSignUp ? 'Already have an account?' : "Don't have an account?"}
+          </Text>
+          <Pressable onPress={() => { setIsSignUp(!isSignUp); setError(''); }}>
+            <Text className="text-indigo-400 font-medium text-sm">
+              {isSignUp ? 'Sign In' : 'Sign Up'}
+            </Text>
+          </Pressable>
+        </View>
+
+      </View>
+    </View>
+  );
+}
