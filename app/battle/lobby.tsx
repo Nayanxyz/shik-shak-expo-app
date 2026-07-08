@@ -149,3 +149,16 @@ export default function BattleLobbyScreen() {
 
   const listenersAttached = useRef(false);
 
+  useEffect(() => {
+    const socket = getSocket();
+    if (listenersAttached.current) return;
+    listenersAttached.current = true;
+
+    socket.on('room_created', (data: any) => {
+      store.setRoom(data);
+      store.setConnected(true);
+      setIsConnecting(false);
+    });
+
+    socket.on('questions_ready', () => setQuestionsReady(true));
+
