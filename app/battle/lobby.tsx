@@ -162,3 +162,18 @@ export default function BattleLobbyScreen() {
 
     socket.on('questions_ready', () => setQuestionsReady(true));
 
+    socket.on('room_joined', (data: any) => {
+      store.setRoom(data);
+      store.setConnected(true);
+      setIsConnecting(false);
+    });
+
+    socket.on('player_joined', (data: any) => store.setPlayers(data.players));
+    
+    socket.on('player_left', (data: any) => {
+      store.setPlayers(data.players);
+      setPopupMessage("A player has left the room.");
+    });
+
+    socket.on('player_left_notification', (data: any) => setPopupMessage(data.message));
+
