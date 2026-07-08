@@ -177,3 +177,10 @@ export default function BattleLobbyScreen() {
 
     socket.on('player_left_notification', (data: any) => setPopupMessage(data.message));
 
+    socket.on('kicked', () => {
+      store.setRoom(null);
+      store.setPlayers([]);
+      store.setConnected(false);
+      setError('You were kicked from the room');
+    });
+
