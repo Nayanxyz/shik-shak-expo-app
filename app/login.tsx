@@ -107,3 +107,18 @@ export default function LoginScreen() {
             </View>
           )}
 
+          <View className="relative justify-center">
+            <View className="absolute left-3 z-10">
+              <Mail size={20} color="#94a3b8" />
+            </View>
+            <TextInput
+              placeholder="Email"
+              placeholderTextColor="#64748b"
+              value={email}
+              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-700 text-slate-100"
+            />
+          </View>
+
