@@ -184,3 +184,9 @@ export default function BattleLobbyScreen() {
       setError('You were kicked from the room');
     });
 
+    socket.on('left_room', () => {
+      store.setRoom(null);
+      store.setPlayers([]);
+      store.setConnected(false);
+    });
+
