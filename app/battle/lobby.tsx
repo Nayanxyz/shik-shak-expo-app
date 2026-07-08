@@ -190,3 +190,12 @@ export default function BattleLobbyScreen() {
       store.setConnected(false);
     });
 
+    socket.on('game_starting', (data: any) => {
+      router.push(`/battle/game/${data.room_code}`);
+    });
+
+    socket.on('error', (data: any) => {
+      setError(data.message);
+      setIsConnecting(false);
+    });
+
