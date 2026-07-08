@@ -199,3 +199,16 @@ export default function BattleLobbyScreen() {
       setIsConnecting(false);
     });
 
+    socket.on('room_forfeited', (data: any) => {
+      setPopupMessage(data.message);
+      disconnectSocket();
+      store.setRoom(null); 
+      store.resetGame();
+      router.replace('/');
+    });
+
+    socket.on('connect', () => setDisconnected(false));
+    socket.on('disconnect', () => setDisconnected(true));
+
+    if (socket.connected) setDisconnected(false);
+
