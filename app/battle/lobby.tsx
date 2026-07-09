@@ -317,3 +317,28 @@ export default function BattleLobbyScreen() {
     }
   };
 
+  return (
+    <View className="flex-1 bg-slate-950">
+      
+      {/* Exit Modal */}
+      <Modal transparent visible={showExitConfirm} animationType="fade">
+        <View className="flex-1 bg-black/70 justify-center items-center p-4">
+          <View className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md space-y-4">
+            <View className="flex-row items-center gap-3">
+              <AlertCircle size={24} color="#facc15" />
+              <Text className="text-xl font-bold text-yellow-400">Leave Room?</Text>
+            </View>
+            <Text className="text-slate-400">If you leave now, you'll exit the room and lose your spot.</Text>
+            <View className="flex-row gap-3 mt-4">
+              <Pressable onPress={() => setShowExitConfirm(false)} className="flex-1 py-3 rounded-xl bg-slate-800 active:bg-slate-700 items-center">
+                <Text className="text-white font-medium">Stay</Text>
+              </Pressable>
+              <Pressable onPress={leaveRoom} className="flex-1 py-3 rounded-xl bg-red-600 active:bg-red-500 items-center justify-center flex-row gap-2">
+                <LogOut size={16} color="#ffffff" />
+                <Text className="text-white font-medium">Leave</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
