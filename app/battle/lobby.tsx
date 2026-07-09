@@ -239,3 +239,11 @@ export default function BattleLobbyScreen() {
     }
   }, [store.roomCode]);
 
+  const toggleChapter = (id: string) => {
+    setSelectedChapters(prev => {
+      if (prev.includes(id)) return prev.filter(c => c !== id);
+      if (prev.length >= 5) return prev;
+      return [...prev, id];
+    });
+  };
+
