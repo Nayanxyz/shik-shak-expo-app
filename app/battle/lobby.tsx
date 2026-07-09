@@ -212,3 +212,20 @@ export default function BattleLobbyScreen() {
 
     if (socket.connected) setDisconnected(false);
 
+    return () => {
+      socket.off('room_created');
+      socket.off('room_joined');
+      socket.off('player_joined');
+      socket.off('player_left');
+      socket.off('questions_ready');
+      socket.off('kicked');
+      socket.off('left_room');
+      socket.off('game_starting');
+      socket.off('error');
+      socket.off('connect');
+      socket.off('disconnect');
+      socket.off('room_forfeited');
+      listenersAttached.current = false;
+    }
+  }, []);
+
