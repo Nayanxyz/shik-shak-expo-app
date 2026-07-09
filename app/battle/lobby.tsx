@@ -283,3 +283,15 @@ export default function BattleLobbyScreen() {
     });
   };
 
+  const leaveRoom = () => {
+    const socket = getSocket();
+    if (socket && store.roomCode) {
+      socket.emit('leave_room', { room_code: store.roomCode });
+    }
+    disconnectSocket();
+    store.setRoom(null); 
+    store.resetGame();
+    setShowExitConfirm(false);
+    router.replace('/'); 
+  };
+
