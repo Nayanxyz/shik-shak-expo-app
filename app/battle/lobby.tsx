@@ -302,3 +302,11 @@ export default function BattleLobbyScreen() {
     }
   };
 
+  const copyCode = async () => {
+    if (store.roomCode) {
+      await Clipboard.setStringAsync(store.roomCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
