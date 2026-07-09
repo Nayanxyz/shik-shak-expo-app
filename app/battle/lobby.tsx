@@ -229,3 +229,13 @@ export default function BattleLobbyScreen() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!store.roomCode) {
+      setMode('menu');
+      setSelectedChapters([]);
+      setJoinCode('');
+      setError('');
+      setQuestionsReady(false);
+    }
+  }, [store.roomCode]);
+
