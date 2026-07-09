@@ -430,3 +430,14 @@ export default function BattleLobbyScreen() {
               </View>
             </View>
 
+            <Pressable onPress={createRoom} disabled={!playerName.trim() || isConnecting} className={`w-full py-4 rounded-xl items-center flex-row justify-center gap-2 ${playerName.trim() && !isConnecting ? 'bg-indigo-600' : 'bg-slate-800'}`}>
+              {isConnecting ? <ActivityIndicator color="#fff" /> : <><Swords size={20} color="#fff" /><Text className="font-semibold text-white text-lg">Create Battle Room</Text></>}
+            </Pressable>
+          </View>
+        )}
+
+        {/* Join mode logic and Active Room UI logic mapping goes here (using standard Text and Views replacing HTML tags) */}
+      </ScrollView>
+    </View>
+  );
+}
