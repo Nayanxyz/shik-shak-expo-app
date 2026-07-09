@@ -410,3 +410,23 @@ export default function BattleLobbyScreen() {
 
             {/* Subject and Difficulty Grids... (Same mapping logic as Practice, omitted for brevity but they are standard flex-row flex-wrap mappings) */}
             
+            <View className="flex-row justify-between mb-6">
+              <View className="w-[48%]">
+                <Text className="text-sm font-semibold text-slate-400 uppercase mb-2">Max Players</Text>
+                <View className="flex-row items-center justify-between bg-slate-900 p-2 rounded-xl border border-slate-700">
+                  <Pressable onPress={() => setMaxPlayers(Math.max(2, maxPlayers - 1))} className="p-2 bg-slate-800 rounded-lg"><Minus size={16} color="#fff"/></Pressable>
+                  <Text className="text-white font-bold">{maxPlayers}</Text>
+                  <Pressable onPress={() => setMaxPlayers(Math.min(4, maxPlayers + 1))} className="p-2 bg-slate-800 rounded-lg"><Plus size={16} color="#fff"/></Pressable>
+                </View>
+              </View>
+              
+              <View className="w-[48%]">
+                <Text className="text-sm font-semibold text-slate-400 uppercase mb-2">Time per Q</Text>
+                <View className="flex-row items-center justify-between bg-slate-900 p-2 rounded-xl border border-slate-700">
+                  <Pressable onPress={() => setTimePerQuestion(Math.max(30, timePerQuestion - 10))} className="p-2 bg-slate-800 rounded-lg"><Minus size={16} color="#fff"/></Pressable>
+                  <Text className="text-white font-bold">{timePerQuestion}s</Text>
+                  <Pressable onPress={() => setTimePerQuestion(Math.min(120, timePerQuestion + 10))} className="p-2 bg-slate-800 rounded-lg"><Plus size={16} color="#fff"/></Pressable>
+                </View>
+              </View>
+            </View>
+
