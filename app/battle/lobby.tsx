@@ -259,3 +259,14 @@ export default function BattleLobbyScreen() {
       return { id, name: ch?.name || id };
     });
 
+    socket.emit('create_room', {
+      subject,
+      difficulty,
+      chapter_mix: chapterMix,
+      player_name: playerName.trim(),
+      max_players: maxPlayers,
+      time_per_question: timePerQuestion,
+      user_id: authUser?.id || `guest_${Math.random().toString(36).slice(2, 10)}`
+    });
+  };
+
