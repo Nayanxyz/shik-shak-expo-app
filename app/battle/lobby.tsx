@@ -247,3 +247,15 @@ export default function BattleLobbyScreen() {
     });
   };
 
+  const createRoom = () => {
+    if (selectedChapters.length !== 5 || !playerName.trim()) return;
+    setIsConnecting(true);
+    setError('');
+    setQuestionsReady(false);
+
+    const socket = getSocket();
+    const chapterMix = selectedChapters.map(id => {
+      const ch = MASTER_CHAPTER_DATABASE[subject]?.find(c => c.id === id);
+      return { id, name: ch?.name || id };
+    });
+
