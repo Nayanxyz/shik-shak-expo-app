@@ -270,3 +270,16 @@ export default function BattleLobbyScreen() {
     });
   };
 
+  const joinRoom = () => {
+    if (!joinCode.trim() || !playerName.trim()) return;
+    setIsConnecting(true);
+    setError('');
+
+    const socket = getSocket();
+    socket.emit('join_room', {
+      room_code: joinCode.trim().toUpperCase(),
+      player_name: playerName.trim(),
+      user_id: authUser?.id
+    });
+  };
+
