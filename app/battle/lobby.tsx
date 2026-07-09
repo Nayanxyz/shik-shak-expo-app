@@ -295,3 +295,10 @@ export default function BattleLobbyScreen() {
     router.replace('/'); 
   };
 
+  const kickPlayer = (targetSid: string) => {
+    const socket = getSocket();
+    if (socket && store.isHost) {
+      socket.emit('kick_player', { target_sid: targetSid });
+    }
+  };
+
