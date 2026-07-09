@@ -342,3 +342,19 @@ export default function BattleLobbyScreen() {
         </View>
       </Modal>
 
+      {/* Notice Modal */}
+      <Modal transparent visible={!!popupMessage} animationType="fade">
+        <View className="flex-1 bg-black/70 justify-center items-center p-4">
+          <View className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-sm space-y-4 items-center">
+            <View className="w-12 h-12 rounded-full bg-yellow-500/20 items-center justify-center mb-2">
+              <AlertCircle size={24} color="#facc15" />
+            </View>
+            <Text className="text-xl font-bold text-white">Notice</Text>
+            <Text className="text-slate-400 text-center">{popupMessage}</Text>
+            <Pressable onPress={() => setPopupMessage('')} className="w-full py-3 mt-4 rounded-xl bg-slate-800 active:bg-slate-700 items-center">
+              <Text className="text-white font-medium">Got it</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
