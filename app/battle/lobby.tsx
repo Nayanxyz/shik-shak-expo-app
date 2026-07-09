@@ -358,3 +358,36 @@ export default function BattleLobbyScreen() {
         </View>
       </Modal>
 
+      <ScrollView className="flex-1" contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
+        
+        <View className="items-center mb-8">
+          <Text className="text-3xl font-bold text-white mb-2">Battle Arena</Text>
+          <Text className="text-slate-400">Create a room or join an existing battle</Text>
+          {disconnected && (
+            <View className="mt-4 flex-row items-center gap-2">
+              <ActivityIndicator size="small" color="#facc15" />
+              <Text className="text-yellow-400 text-sm">Reconnecting to server...</Text>
+            </View>
+          )}
+        </View>
+
+        {mode === 'menu' && !store.roomCode && (
+          <View className="gap-6">
+            <Pressable onPress={() => setMode('create')} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 active:border-indigo-500/50">
+              <View className="w-14 h-14 rounded-xl bg-indigo-500/20 items-center justify-center mb-4">
+                <Plus size={28} color="#818cf8" />
+              </View>
+              <Text className="text-xl font-bold text-white mb-2">Create Room</Text>
+              <Text className="text-slate-400">Host a new battle and invite friends</Text>
+            </Pressable>
+            
+            <Pressable onPress={() => setMode('join')} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 active:border-purple-500/50">
+              <View className="w-14 h-14 rounded-xl bg-purple-500/20 items-center justify-center mb-4">
+                <LogIn size={28} color="#c084fc" />
+              </View>
+              <Text className="text-xl font-bold text-white mb-2">Join Room</Text>
+              <Text className="text-slate-400">Enter a room code to join a battle</Text>
+            </Pressable>
+          </View>
+        )}
+
