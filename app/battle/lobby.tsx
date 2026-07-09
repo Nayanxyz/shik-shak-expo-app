@@ -310,3 +310,10 @@ export default function BattleLobbyScreen() {
     }
   };
 
+  const startGame = () => {
+    const socket = getSocket();
+    if (socket && store.isHost && store.roomCode) {
+      socket.emit('start_game', { room_code: store.roomCode });
+    }
+  };
+
