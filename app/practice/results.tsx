@@ -13,3 +13,9 @@ export default function ResultsScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    if (!sessionId) {
+      router.replace('/practice');
+      return;
+    }
+    
