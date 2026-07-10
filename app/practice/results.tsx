@@ -19,3 +19,17 @@ export default function ResultsScreen() {
       return;
     }
     
+    const fetchResults = async () => {
+      try {
+        const data = await apiFetch(`/api/v1/practice/${sessionId}/results`);
+        setResults(data);
+      } catch (e: any) {
+        setError(e.message || "Failed to fetch results.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchResults();
+  }, [sessionId]);
+
