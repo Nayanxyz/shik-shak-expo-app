@@ -42,3 +42,16 @@ export default function ResultsScreen() {
     );
   }
 
+  if (error) {
+    return (
+      <View className="flex-1 bg-slate-950 justify-center items-center px-4">
+        <XCircle size={48} color="#f87171" className="mb-4" />
+        <Text className="text-xl font-bold text-white mb-2">Failed to load results</Text>
+        <Text className="text-slate-400 text-center mb-8">{error}</Text>
+        <Pressable onPress={() => router.replace('/practice')} className="px-8 py-4 bg-indigo-600 active:bg-indigo-500 rounded-xl">
+          <Text className="font-semibold text-white">Try Again</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
