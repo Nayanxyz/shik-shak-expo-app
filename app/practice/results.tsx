@@ -73,3 +73,9 @@ export default function ResultsScreen() {
         <Text className="text-slate-400 mt-2">Here's how you performed</Text>
       </View>
 
+      {/* Score Card */}
+      <View className="p-8 rounded-2xl bg-indigo-950 border border-indigo-500/20 items-center mb-8">
+        <Text className="text-6xl font-bold text-indigo-300">{totalScore}</Text>
+        <Text className="text-slate-400 mt-2">Total Score</Text>
+      </View>
+
