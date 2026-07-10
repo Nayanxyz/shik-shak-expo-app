@@ -9,3 +9,7 @@ export default function ResultsScreen() {
   // Ensure we safely extract the ID if Expo Router passes it as an array
   const sessionId = Array.isArray(params.sessionId) ? params.sessionId[0] : params.sessionId;
   
+  const [results, setResults] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
