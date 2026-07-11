@@ -67,3 +67,27 @@ export default function RootLayout() {
   // FIX: isReady state ensures Auth gating waits for initial load to finish completely
   const [isReady, setIsReady] = useState(false);
 
+  useEffect(() => {
+    loadUser().finally(() => setIsReady(true));
+  }, [loadUser]);
+
+  useEffect(() => {
+    if (!isReady || loading) return;
+
+    const inAuthGroup = segments[0] === 'login' || segments[0] === 'auth';
+
+    if (!user && !inAuthGroup) {
+      router.replace('/login');
+    } else if (user && inAuthGroup) {
+      router.replace('/');
+    }
+  }, [user, loading, segments, isReady]);
+
+  if (!isReady || loading) {
+    return (
+      <View className="flex-1 bg-slate-950 items-center justify-center">
+        <ActivityIndicator size="large" color="#6366f1" />
+      </View>
+    );
+  }
+
