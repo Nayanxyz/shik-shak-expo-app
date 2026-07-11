@@ -61,3 +61,9 @@ function Navbar() {
   );
 }
 
+export default function RootLayout() {
+  const { user, loading, loadUser } = useAuthStore();
+  const segments = useSegments();
+  // FIX: isReady state ensures Auth gating waits for initial load to finish completely
+  const [isReady, setIsReady] = useState(false);
+
