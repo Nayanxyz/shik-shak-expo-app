@@ -91,3 +91,11 @@ export default function RootLayout() {
     );
   }
 
+  return (
+    <SafeAreaView className="flex-1 bg-slate-950">
+      <Navbar />
+      {/* FIX: Stack must sit at the root level without being choked by a <View> container */}
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: '#020617' } }} />
+    </SafeAreaView>
+  );
+}
