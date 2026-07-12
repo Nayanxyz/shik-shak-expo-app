@@ -44,3 +44,22 @@ export default function MathHtml({ html, className }: { html: string; className?
     `;
   }, [html]);
 
+  return (
+    <View className={className} style={{ height: dynamicHeight, width: '100%' }}>
+      <WebView
+        originWhitelist={['*']}
+        source={{ html: htmlContent }}
+        style={styles.webview}
+        scrollEnabled={false}
+        overScrollMode="never"
+        onMessage={(event) => {
+          const contentHeight = Number(event.nativeEvent.data);
+          if (contentHeight > 0) {
+            setDynamicHeight(contentHeight + 20); // Add padding buffer
+          }
+        }}
+      />
+    </View>
+  );
+}
+
