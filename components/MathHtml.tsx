@@ -30,3 +30,17 @@ export default function MathHtml({ html, className }: { html: string; className?
             overflow: hidden;
           }
         </style>
+      </head>
+      <body>
+        <div>${processed}</div>
+        <script>
+          // Fallback height update in case math takes slightly longer to render
+          setTimeout(() => {
+             window.ReactNativeWebView.postMessage(document.body.scrollHeight);
+          }, 500);
+        </script>
+      </body>
+      </html>
+    `;
+  }, [html]);
+
