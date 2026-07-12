@@ -22,3 +22,21 @@ export function getSocket(): Socket {
     });
   }
   
+  if (!socket.connected) {
+    socket.connect();
+  }
+  
+  return socket;
+}
+
+export function disconnectSocket() {
+  if (socket) {
+    socket.disconnect();
+    socket.removeAllListeners();
+    socket = null;
+  }
+}
+
+export function isSocketConnected(): boolean {
+  return socket !== null && socket.connected;
+}
