@@ -63,3 +63,8 @@ export default function MathHtml({ html, className }: { html: string; className?
   );
 }
 
+const styles = StyleSheet.create({
+  webview: {
+    backgroundColor: 'transparent',
+  },
+});
