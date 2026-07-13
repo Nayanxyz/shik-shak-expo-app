@@ -20,3 +20,13 @@ export const signInWithEmail = async (email: string, password: string) => {
   return { data, error };
 };
 
+export const signInWithGoogle = async () => {
+  // FIX: Use Expo Linking to dynamically create the redirect URI across Native and Web
+  const redirectUrl = Linking.createURL('/auth/callback');
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: redirectUrl }
+  });
+  return { data, error };
+};
+
