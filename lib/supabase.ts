@@ -48,3 +48,16 @@ export const getProfile = async (userId: string) => {
   return { data, error };
 };
 
+export const upsertProfile = async (profile: {
+  id: string;
+  username: string;
+  full_name?: string;
+  avatar_url?: string;
+}) => {
+  const { data, error } = await supabase
+    .from('profiles')
+    .upsert(profile, { onConflict: 'id' })
+    .select()
+    .single();
+  return { data, error };
+};
