@@ -88,3 +88,14 @@ export const useGameStore = create<GameState>((set) => ({
       });
       return;
     }
+    set({
+      roomCode: room.room_code,
+      mode: room.mode,
+      subject: room.subject,
+      difficulty: room.difficulty,
+      status: room.status,
+      isHost: room.is_host,
+      players: room.players || [],
+    });
+  },
+
