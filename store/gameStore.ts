@@ -118,3 +118,23 @@ export const useGameStore = create<GameState>((set) => ({
   setLeaderboard: (lb) => set({ leaderboard: lb }),
   setFinalRankings: (rankings) => set({ finalRankings: rankings }),
 
+  resetGame: () => set({
+    isConnected: false,
+    roomCode: null,
+    mode: null,
+    subject: null,
+    difficulty: null,
+    status: 'WAITING',
+    players: [],
+    isHost: false,
+    currentQuestion: 0,
+    totalQuestions: 5,
+    questions: [],
+    timeRemaining: 60,
+    selectedOption: null,
+    hasAnswered: false,
+    questionResults: null,
+    leaderboard: null,
+    finalRankings: null,
+  }),
+}))
