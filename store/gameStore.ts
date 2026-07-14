@@ -99,3 +99,5 @@ export const useGameStore = create<GameState>((set) => ({
     });
   },
 
+  setPlayers: (players) => set({ players }),
+
