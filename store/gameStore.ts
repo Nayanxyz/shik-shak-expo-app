@@ -22,3 +22,22 @@ export interface Question {
   time_limit?: number
 }
 
+interface GameState {
+  isConnected: boolean
+  roomCode: string | null
+  mode: 'PRACTICE' | 'BATTLE' | null
+  subject: string | null
+  difficulty: string | null
+  status: string
+  players: Player[]
+  isHost: boolean
+  currentQuestion: number
+  totalQuestions: number
+  questions: Question[]
+  timeRemaining: number
+  selectedOption: string | null
+  hasAnswered: boolean
+  questionResults: any | null
+  leaderboard: any[] | null
+  finalRankings: any[] | null
+
