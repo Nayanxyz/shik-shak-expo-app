@@ -75,3 +75,16 @@ export const useGameStore = create<GameState>((set) => ({
 
   setConnected: (connected) => set({ isConnected: connected }),
 
+  setRoom: (room) => {
+    if (!room) {
+      set({
+        roomCode: null,
+        mode: null,
+        subject: null,
+        difficulty: null,
+        status: 'WAITING',
+        isHost: false,
+        players: [],
+      });
+      return;
+    }
