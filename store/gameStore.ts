@@ -41,3 +41,16 @@ interface GameState {
   leaderboard: any[] | null
   finalRankings: any[] | null
 
+  setConnected: (connected: boolean) => void
+  setRoom: (room: any) => void
+  setPlayers: (players: Player[]) => void
+  setQuestion: (q: Question, total: number) => void
+  setTimeRemaining: (time: number) => void
+  setSelectedOption: (option: string | null) => void
+  setHasAnswered: (answered: boolean) => void
+  setQuestionResults: (results: any) => void
+  setLeaderboard: (lb: any[]) => void
+  setFinalRankings: (rankings: any[]) => void
+  resetGame: () => void
+}
+
