@@ -73,3 +73,5 @@ export const useGameStore = create<GameState>((set) => ({
   leaderboard: null,
   finalRankings: null,
 
+  setConnected: (connected) => set({ isConnected: connected }),
+
