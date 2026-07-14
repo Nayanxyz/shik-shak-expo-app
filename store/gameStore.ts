@@ -111,3 +111,10 @@ export const useGameStore = create<GameState>((set) => ({
     questionResults: null,
   })),
 
+  setTimeRemaining: (time) => set({ timeRemaining: time }),
+  setSelectedOption: (option) => set({ selectedOption: option }),
+  setHasAnswered: (answered) => set({ hasAnswered: answered }),
+  setQuestionResults: (results) => set({ questionResults: results }),
+  setLeaderboard: (lb) => set({ leaderboard: lb }),
+  setFinalRankings: (rankings) => set({ finalRankings: rankings }),
+
