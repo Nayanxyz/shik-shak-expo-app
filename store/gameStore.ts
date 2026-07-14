@@ -101,3 +101,13 @@ export const useGameStore = create<GameState>((set) => ({
 
   setPlayers: (players) => set({ players }),
 
+  setQuestion: (q, total) => set((state) => ({
+    currentQuestion: q.question_number,
+    totalQuestions: total,
+    questions: [...state.questions, q], // FIX: Preserve history by appending
+    timeRemaining: q.time_limit || 60,
+    selectedOption: null,
+    hasAnswered: false,
+    questionResults: null,
+  })),
+
