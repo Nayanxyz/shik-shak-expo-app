@@ -39,3 +39,36 @@ export default function BattleResultsScreen() {
         </View>
       )}
 
+      <View className="space-y-3 mb-8 gap-3">
+        {rankings.map((p: any, i: number) => (
+          <View key={p.user_id} className={`flex-row items-center justify-between p-4 rounded-2xl border ${
+            i === 0 ? "bg-orange-900/20 border-yellow-500/30" :
+            i === 1 ? "bg-slate-800/50 border-slate-400/30" :
+            i === 2 ? "bg-red-900/20 border-orange-500/30" :
+            "bg-slate-900 border-slate-800"
+          }`}>
+            <View className="flex-row items-center gap-4">
+              <View className={`w-12 h-12 rounded-full items-center justify-center ${
+                i === 0 ? "bg-yellow-500" :
+                i === 1 ? "bg-slate-400" :
+                i === 2 ? "bg-orange-500" :
+                "bg-slate-800"
+              }`}>
+                {i === 0 ? <Crown size={24} color="#422006" /> : <Text className="font-bold text-lg text-white">{p.rank}</Text>}
+              </View>
+              <View>
+                <Text className="font-bold text-lg text-white">{p.name}</Text>
+                <View className="flex-row items-center gap-3 mt-1">
+                  <View className="flex-row items-center gap-1"><Target size={12} color="#94a3b8" /><Text className="text-xs text-slate-400">{p.accuracy}%</Text></View>
+                  <View className="flex-row items-center gap-1"><Zap size={12} color="#94a3b8" /><Text className="text-xs text-slate-400">Streak {p.max_streak}</Text></View>
+                </View>
+              </View>
+            </View>
+            <View className="items-end">
+              <Text className="text-2xl font-bold text-indigo-300">{p.total_score}</Text>
+              <Text className="text-xs text-slate-400">points</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+
