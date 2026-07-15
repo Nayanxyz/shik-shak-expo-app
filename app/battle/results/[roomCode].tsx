@@ -28,3 +28,14 @@ export default function BattleResultsScreen() {
         <Text className="text-slate-400 mt-2">Room: {roomCode}</Text>
       </View>
 
+      {rankings[0] && (
+        <View className="p-6 rounded-2xl bg-yellow-900/30 border border-yellow-500/30 items-center mb-6">
+          <Crown size={32} color="#facc15" className="mb-2" />
+          <Text className="text-lg text-yellow-300 font-semibold">Winner</Text>
+          <Text className="text-2xl font-bold text-white mt-1">{rankings[0].name}</Text>
+          <Text className="text-slate-400 mt-1">
+            {rankings[0].total_score} points • {rankings[0].accuracy}% accuracy
+          </Text>
+        </View>
+      )}
+
