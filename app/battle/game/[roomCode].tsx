@@ -30,3 +30,13 @@ export default function BattleGameScreen() {
   const listenersAttached = useRef(false);
 
 
+  const handleExit = () => {
+    const socket = getSocket();
+    if (socket && roomCode) {
+      socket.emit('leave_room', { room_code: (roomCode as string).toUpperCase() });
+    }
+    disconnectSocket();
+    store.resetGame();
+    router.replace('/'); 
+  };
+
