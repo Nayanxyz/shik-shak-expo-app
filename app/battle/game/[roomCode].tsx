@@ -65,3 +65,20 @@ export default function BattleGameScreen() {
         </View>
       </Modal>
 
+      <ScrollView className="flex-1" contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
+        <View className="flex-row items-center justify-between mb-6">
+          <View className="flex-row items-center gap-3">
+            <Swords size={20} color="#818cf8" />
+            <Text className="font-semibold text-slate-300">Room: {roomCode}</Text>
+          </View>
+          <Pressable onPress={() => setShowExitConfirm(true)} className="flex-row items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 border border-slate-700">
+            <LogOut size={16} color="#94a3b8" />
+            <Text className="text-white text-sm">Exit</Text>
+          </Pressable>
+        </View>
+
+        {/* Use Native Modals or conditional Views for the rest of the game phases (Playing, Leaderboard, Finished) using the same View mappings from Practice mode. */}
+      </ScrollView>
+    </View>
+  );
+}
