@@ -42,3 +42,26 @@ export default function BattleGameScreen() {
 
   const question = store.questions[0];
 
+  return (
+    <View className="flex-1 bg-slate-950">
+      <Modal transparent visible={showExitConfirm} animationType="fade">
+        <View className="flex-1 bg-black/70 justify-center items-center p-4">
+          <View className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md space-y-4">
+            <View className="flex-row items-center gap-3">
+              <AlertTriangle size={24} color="#facc15" />
+              <Text className="text-xl font-bold text-yellow-400">Leave Battle?</Text>
+            </View>
+            <Text className="text-slate-400">{phase === 'finished' ? "Return to lobby? Your results have been saved." : "Leaving forfeits the active battle ranking metrics completely."}</Text>
+            <View className="flex-row gap-3 mt-4">
+              <Pressable onPress={() => setShowExitConfirm(false)} className="flex-1 py-3 rounded-xl bg-slate-800 items-center">
+                <Text className="font-medium text-white">Stay</Text>
+              </Pressable>
+              <Pressable onPress={handleExit} className="flex-1 py-3 rounded-xl bg-red-600 flex-row items-center justify-center gap-2">
+                <LogOut size={16} color="#fff" />
+                <Text className="font-medium text-white">Leave</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
