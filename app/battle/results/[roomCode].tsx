@@ -72,3 +72,16 @@ export default function BattleResultsScreen() {
         ))}
       </View>
 
+      <View className="flex-row gap-4">
+        <Pressable onPress={() => { store.resetGame(); router.replace('/battle/lobby'); }} className="flex-1 py-4 rounded-xl bg-indigo-600 active:bg-indigo-500 flex-row justify-center items-center gap-2">
+          <Swords size={20} color="#fff" />
+          <Text className="font-semibold text-white">New Battle</Text>
+        </Pressable>
+        <Pressable onPress={() => { store.resetGame(); router.replace('/'); }} className="flex-1 py-4 rounded-xl bg-slate-800 active:bg-slate-700 border border-slate-700 flex-row justify-center items-center gap-2">
+          <Text className="font-semibold text-white">Home</Text>
+          <ArrowRight size={20} color="#fff" />
+        </Pressable>
+      </View>
+    </ScrollView>
+  );
+}
