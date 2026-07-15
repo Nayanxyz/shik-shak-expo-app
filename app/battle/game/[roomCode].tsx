@@ -40,3 +40,5 @@ export default function BattleGameScreen() {
     router.replace('/'); 
   };
 
+  const question = store.questions[0];
+
