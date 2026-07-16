@@ -1,12 +1,12 @@
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { router } from 'expo-router';
-import { Brain, Swords, Target, Users, Clock, ChevronRight, Sparkles } from 'lucide-react-native';
+// 🚨 Lucide completely removed to protect the Android SVG engine
 
 const features = [
-  { icon: <Brain size={24} color="#818cf8" />, title: 'AI-Powered Questions', desc: 'Groq LLM generates fresh JEE/NEET MCQs every time' },
-  { icon: <Target size={24} color="#818cf8" />, title: 'Smart Validation', desc: 'Math/Physics checked with SymPy, Chemistry with PubChem' },
-  { icon: <Users size={24} color="#818cf8" />, title: 'Live Battles', desc: 'Compete with up to 4 players in real-time' },
-  { icon: <Clock size={24} color="#818cf8" />, title: 'Time Bonuses', desc: 'Answer fast for extra points — speed matters!' },
+  { icon: <Text className="text-2xl">🧠</Text>, title: 'AI-Powered Questions', desc: 'Groq LLM generates fresh JEE/NEET MCQs every time' },
+  { icon: <Text className="text-2xl">🎯</Text>, title: 'Smart Validation', desc: 'Math/Physics checked with SymPy, Chemistry with PubChem' },
+  { icon: <Text className="text-2xl">👥</Text>, title: 'Live Battles', desc: 'Compete with up to 4 players in real-time' },
+  { icon: <Text className="text-2xl">⏱️</Text>, title: 'Time Bonuses', desc: 'Answer fast for extra points — speed matters!' },
 ];
 
 const subjects = [
@@ -24,7 +24,7 @@ export default function HomeScreen() {
         {/* Hero */}
         <View className="items-center py-12 px-4">
           <View className="flex-row items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6">
-            <Sparkles size={16} color="#a5b4fc" />
+            <Text className="text-sm">✨</Text>
             <Text className="text-indigo-300 text-sm">Powered by Nayanxyz</Text>
           </View>
           
@@ -41,7 +41,7 @@ export default function HomeScreen() {
               onPress={() => router.push('/practice')}
               className="flex-row items-center justify-center gap-2 px-8 py-4 bg-indigo-600 active:bg-indigo-500 rounded-xl"
             >
-              <Brain size={20} color="#ffffff" />
+              <Text className="text-xl">🧠</Text>
               <Text className="font-semibold text-lg text-white">Start Practice</Text>
             </Pressable>
             
@@ -49,7 +49,7 @@ export default function HomeScreen() {
               onPress={() => router.push('/battle/lobby')}
               className="flex-row items-center justify-center gap-2 px-8 py-4 bg-slate-800 active:bg-slate-700 border border-slate-700 rounded-xl"
             >
-              <Swords size={20} color="#ffffff" />
+              <Text className="text-xl">⚔️</Text>
               <Text className="font-semibold text-lg text-white">Battle Arena</Text>
             </Pressable>
           </View>
@@ -71,7 +71,7 @@ export default function HomeScreen() {
                 <Text className="font-bold text-lg text-white">{s.name}</Text>
                 <Text className="text-slate-400 text-xs mt-1">JEE/NEET level</Text>
                 <View className="mt-4">
-                  <ChevronRight size={20} color="#64748b" />
+                  <Text className="text-lg">▶️</Text>
                 </View>
               </Pressable>
             ))}
