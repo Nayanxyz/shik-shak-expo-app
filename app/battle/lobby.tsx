@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { View, Text, Pressable, TextInput, ScrollView, Modal, ActivityIndicator } from 'react-native';
 import { router } from 'expo-router';
 import * as Clipboard from 'expo-clipboard';
-import { Swords, Users, Clock, Plus, LogIn, Copy, Check, LogOut, Crown, UserX, RefreshCw, AlertCircle, Zap, BookOpen, Dices, Minus } from 'lucide-react-native';
+// 🚨 Lucide completely removed to protect the Android SVG engine
 import { getSocket, disconnectSocket } from '../../lib/socket';
 import { useGameStore } from '../../store/gameStore';
 import { useAuthStore } from '../../store/authStore';
@@ -325,7 +325,7 @@ export default function BattleLobbyScreen() {
         <View className="flex-1 bg-black/70 justify-center items-center p-4">
           <View className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md space-y-4">
             <View className="flex-row items-center gap-3">
-              <AlertCircle size={24} color="#facc15" />
+              <Text className="text-2xl">⚠️</Text>
               <Text className="text-xl font-bold text-yellow-400">Leave Room?</Text>
             </View>
             <Text className="text-slate-400">If you leave now, you'll exit the room and lose your spot.</Text>
@@ -334,7 +334,7 @@ export default function BattleLobbyScreen() {
                 <Text className="text-white font-medium">Stay</Text>
               </Pressable>
               <Pressable onPress={leaveRoom} className="flex-1 py-3 rounded-xl bg-red-600 active:bg-red-500 items-center justify-center flex-row gap-2">
-                <LogOut size={16} color="#ffffff" />
+                <Text className="text-white">🚪</Text>
                 <Text className="text-white font-medium">Leave</Text>
               </Pressable>
             </View>
@@ -347,7 +347,7 @@ export default function BattleLobbyScreen() {
         <View className="flex-1 bg-black/70 justify-center items-center p-4">
           <View className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-sm space-y-4 items-center">
             <View className="w-12 h-12 rounded-full bg-yellow-500/20 items-center justify-center mb-2">
-              <AlertCircle size={24} color="#facc15" />
+              <Text className="text-2xl">⚠️</Text>
             </View>
             <Text className="text-xl font-bold text-white">Notice</Text>
             <Text className="text-slate-400 text-center">{popupMessage}</Text>
@@ -375,7 +375,7 @@ export default function BattleLobbyScreen() {
           <View className="gap-6">
             <Pressable onPress={() => setMode('create')} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 active:border-indigo-500/50">
               <View className="w-14 h-14 rounded-xl bg-indigo-500/20 items-center justify-center mb-4">
-                <Plus size={28} color="#818cf8" />
+                <Text className="text-3xl">➕</Text>
               </View>
               <Text className="text-xl font-bold text-white mb-2">Create Room</Text>
               <Text className="text-slate-400">Host a new battle and invite friends</Text>
@@ -383,7 +383,7 @@ export default function BattleLobbyScreen() {
             
             <Pressable onPress={() => setMode('join')} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 active:border-purple-500/50">
               <View className="w-14 h-14 rounded-xl bg-purple-500/20 items-center justify-center mb-4">
-                <LogIn size={28} color="#c084fc" />
+                <Text className="text-3xl">🔑</Text>
               </View>
               <Text className="text-xl font-bold text-white mb-2">Join Room</Text>
               <Text className="text-slate-400">Enter a room code to join a battle</Text>
@@ -414,24 +414,32 @@ export default function BattleLobbyScreen() {
               <View className="w-[48%]">
                 <Text className="text-sm font-semibold text-slate-400 uppercase mb-2">Max Players</Text>
                 <View className="flex-row items-center justify-between bg-slate-900 p-2 rounded-xl border border-slate-700">
-                  <Pressable onPress={() => setMaxPlayers(Math.max(2, maxPlayers - 1))} className="p-2 bg-slate-800 rounded-lg"><Minus size={16} color="#fff"/></Pressable>
+                  <Pressable onPress={() => setMaxPlayers(Math.max(2, maxPlayers - 1))} className="p-2 bg-slate-800 rounded-lg">
+                    <Text className="text-white">➖</Text>
+                  </Pressable>
                   <Text className="text-white font-bold">{maxPlayers}</Text>
-                  <Pressable onPress={() => setMaxPlayers(Math.min(4, maxPlayers + 1))} className="p-2 bg-slate-800 rounded-lg"><Plus size={16} color="#fff"/></Pressable>
+                  <Pressable onPress={() => setMaxPlayers(Math.min(4, maxPlayers + 1))} className="p-2 bg-slate-800 rounded-lg">
+                    <Text className="text-white">➕</Text>
+                  </Pressable>
                 </View>
               </View>
               
               <View className="w-[48%]">
                 <Text className="text-sm font-semibold text-slate-400 uppercase mb-2">Time per Q</Text>
                 <View className="flex-row items-center justify-between bg-slate-900 p-2 rounded-xl border border-slate-700">
-                  <Pressable onPress={() => setTimePerQuestion(Math.max(30, timePerQuestion - 10))} className="p-2 bg-slate-800 rounded-lg"><Minus size={16} color="#fff"/></Pressable>
+                  <Pressable onPress={() => setTimePerQuestion(Math.max(30, timePerQuestion - 10))} className="p-2 bg-slate-800 rounded-lg">
+                    <Text className="text-white">➖</Text>
+                  </Pressable>
                   <Text className="text-white font-bold">{timePerQuestion}s</Text>
-                  <Pressable onPress={() => setTimePerQuestion(Math.min(120, timePerQuestion + 10))} className="p-2 bg-slate-800 rounded-lg"><Plus size={16} color="#fff"/></Pressable>
+                  <Pressable onPress={() => setTimePerQuestion(Math.min(120, timePerQuestion + 10))} className="p-2 bg-slate-800 rounded-lg">
+                    <Text className="text-white">➕</Text>
+                  </Pressable>
                 </View>
               </View>
             </View>
 
             <Pressable onPress={createRoom} disabled={!playerName.trim() || isConnecting} className={`w-full py-4 rounded-xl items-center flex-row justify-center gap-2 ${playerName.trim() && !isConnecting ? 'bg-indigo-600' : 'bg-slate-800'}`}>
-              {isConnecting ? <ActivityIndicator color="#fff" /> : <><Swords size={20} color="#fff" /><Text className="font-semibold text-white text-lg">Create Battle Room</Text></>}
+              {isConnecting ? <ActivityIndicator color="#fff" /> : <><Text className="text-xl">⚔️</Text><Text className="font-semibold text-white text-lg">Create Battle Room</Text></>}
             </Pressable>
           </View>
         )}
