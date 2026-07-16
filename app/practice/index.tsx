@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { View, Text, Pressable, ScrollView, Modal, ActivityIndicator } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Brain, Clock, CheckCircle, XCircle, ArrowRight, BookOpen, Dices, Zap, LogOut, AlertCircle } from 'lucide-react-native';
+// 🚨 Lucide completely removed to protect the Android SVG engine
 import MathHtml from '../../components/MathHtml';
 import { apiFetch } from '../../lib/api';
 
@@ -126,7 +126,6 @@ function getRandomChapters(subject: string, count: number = 5): string[] {
 
 export default function PracticeScreen() {
   const params = useLocalSearchParams();
-  // Safe extraction of params in case they are arrays
   const initialSubject = Array.isArray(params.subject) ? params.subject[0] : params.subject;
 
   const [step, setStep] = useState<'select' | 'loading' | 'playing'>('select');
@@ -172,7 +171,6 @@ export default function PracticeScreen() {
     if (timerActiveRef.current) return;
     timerActiveRef.current = true;
     
-    // Explicitly typed as ReturnType<typeof setInterval> for RN/NodeJS compatibility
     const timer: ReturnType<typeof setInterval> = setInterval(() => {
       setTimeRemaining(t => {
         if (t <= 1) {
@@ -238,7 +236,6 @@ export default function PracticeScreen() {
 
   const nextQuestion = () => {
     if (currentQ + 1 >= session.total_questions) {
-      // Changed to template literal format to bypass strict TS router matching issues
       router.replace(`/practice/results?sessionId=${session.session_id}`);
       return;
     }
@@ -259,7 +256,7 @@ export default function PracticeScreen() {
         <View className="flex-1 bg-black/70 justify-center items-center p-4">
           <View className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md space-y-4">
             <View className="flex-row items-center gap-3">
-              <AlertCircle size={24} color="#facc15" />
+              <Text className="text-2xl">⚠️</Text>
               <Text className="text-xl font-bold text-yellow-400">Leave Practice?</Text>
             </View>
             <Text className="text-slate-400">Your session will end and any unanswered questions will be skipped.</Text>
@@ -268,7 +265,7 @@ export default function PracticeScreen() {
                 <Text className="text-white font-medium">Stay</Text>
               </Pressable>
               <Pressable onPress={handleLeavePractice} className="flex-1 py-3 rounded-xl bg-red-600 active:bg-red-500 items-center justify-center flex-row gap-2">
-                <LogOut size={16} color="#ffffff" />
+                <Text className="text-white">🚪</Text>
                 <Text className="text-white font-medium">Leave</Text>
               </Pressable>
             </View>
@@ -290,7 +287,7 @@ export default function PracticeScreen() {
                 <Pressable key={s} onPress={() => { setSubject(s); setSelectedChapters([]); }}
                   className={`w-[48%] p-4 rounded-xl border ${subject === s ? 'border-indigo-500 bg-indigo-900/50' : 'border-slate-700 bg-slate-900'}`}
                 >
-                  <BookOpen size={20} color={subject === s ? '#818cf8' : '#94a3b8'} />
+                  <Text className="text-lg">📖</Text>
                   <Text className={`font-semibold mt-2 ${subject === s ? 'text-indigo-300' : 'text-slate-300'}`}>{s}</Text>
                 </Pressable>
               ))}
@@ -304,7 +301,7 @@ export default function PracticeScreen() {
                 <Pressable key={d} onPress={() => setDifficulty(d)}
                   className={`flex-1 p-4 rounded-xl border ${difficulty === d ? (d === 'LOW' ? 'border-green-500 bg-green-900/50' : 'border-red-500 bg-red-900/50') : 'border-slate-700 bg-slate-900'}`}
                 >
-                  <Zap size={20} color={difficulty === d ? (d === 'LOW' ? '#4ade80' : '#f87171') : '#94a3b8'} />
+                  <Text className="text-lg">⚡</Text>
                   <Text className={`font-semibold mt-2 ${difficulty === d ? (d === 'LOW' ? 'text-green-300' : 'text-red-300') : 'text-slate-300'}`}>
                     {d === 'LOW' ? 'Foundation' : 'Advanced'}
                   </Text>
@@ -318,7 +315,7 @@ export default function PracticeScreen() {
             <View className="flex-row items-center justify-between mb-3">
               <Text className="text-sm font-semibold text-slate-400 uppercase tracking-wider">Chapters ({selectedChapters.length}/5)</Text>
               <Pressable onPress={randomizeChapters} className="flex-row items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-900/50 border border-indigo-500/30">
-                <Dices size={16} color="#818cf8" />
+                <Text className="text-lg">🎲</Text>
                 <Text className="text-indigo-300 text-sm">Random 5</Text>
               </Pressable>
             </View>
@@ -362,15 +359,15 @@ export default function PracticeScreen() {
         <ScrollView className="flex-1 px-4 py-6" contentContainerStyle={{ paddingBottom: 40 }}>
           <View className="flex-row items-center justify-between mb-6">
             <View className="flex-row items-center gap-2">
-              <Brain size={16} color="#94a3b8" />
+              <Text className="text-lg">🧠</Text>
               <Text className="text-sm text-slate-400">Q {currentQ + 1} of {session.total_questions}</Text>
             </View>
             <View className={`flex-row items-center gap-2 px-4 py-2 rounded-full ${timeRemaining <= 10 ? 'bg-red-900/50' : 'bg-slate-800'}`}>
-              <Clock size={16} color={timeRemaining <= 10 ? '#fca5a5' : '#e2e8f0'} />
+              <Text className="text-lg">⏱️</Text>
               <Text className={`font-mono text-sm ${timeRemaining <= 10 ? 'text-red-300' : 'text-slate-200'}`}>{timeRemaining}s</Text>
             </View>
             <Pressable onPress={() => setShowExitConfirm(true)} className="flex-row items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700">
-              <LogOut size={16} color="#94a3b8" />
+              <Text className="text-lg">🚪</Text>
             </Pressable>
           </View>
           
@@ -414,7 +411,7 @@ export default function PracticeScreen() {
           ) : (
             <View className="space-y-4 gap-4">
               <View className={`p-4 rounded-xl border flex-row gap-3 ${result?.is_correct ? 'border-green-500/30 bg-green-900/30' : 'border-red-500/30 bg-red-900/30'}`}>
-                {result?.is_correct ? <CheckCircle size={24} color="#4ade80" /> : <XCircle size={24} color="#f87171" />}
+                <Text className="text-2xl">{result?.is_correct ? '✅' : '❌'}</Text>
                 <View className="flex-1">
                   <Text className={`font-semibold text-lg ${result?.is_correct ? 'text-green-300' : 'text-red-300'}`}>
                     {result?.is_correct ? `Correct! +${result.score} points` : 'Incorrect (-1 point)'}
@@ -426,7 +423,7 @@ export default function PracticeScreen() {
               </View>
               <Pressable onPress={nextQuestion} className="w-full py-4 rounded-xl bg-indigo-600 active:bg-indigo-500 flex-row items-center justify-center gap-2">
                 <Text className="font-semibold text-lg text-white">{currentQ + 1 >= session.total_questions ? 'View Results' : 'Next Question'}</Text>
-                <ArrowRight size={20} color="#ffffff" />
+                <Text className="text-white text-lg">➡️</Text>
               </Pressable>
             </View>
           )}
