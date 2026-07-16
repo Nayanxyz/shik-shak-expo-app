@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
-import { Trophy, Crown, Swords, ArrowRight, Zap, Target, Users } from 'lucide-react-native';
+// 🚨 Lucide completely removed to protect the Android SVG engine
 import { useGameStore } from '../../../store/gameStore';
 
 export default function BattleResultsScreen() {
@@ -22,7 +22,7 @@ export default function BattleResultsScreen() {
       
       <View className="items-center mb-8">
         <View className="w-20 h-20 rounded-full bg-orange-500 items-center justify-center mb-4">
-          <Trophy size={40} color="#fff" />
+          <Text className="text-4xl text-white">🏆</Text>
         </View>
         <Text className="text-3xl font-bold text-white">Battle Complete!</Text>
         <Text className="text-slate-400 mt-2">Room: {roomCode}</Text>
@@ -30,7 +30,7 @@ export default function BattleResultsScreen() {
 
       {rankings[0] && (
         <View className="p-6 rounded-2xl bg-yellow-900/30 border border-yellow-500/30 items-center mb-6">
-          <Crown size={32} color="#facc15" className="mb-2" />
+          <Text className="text-3xl mb-2">👑</Text>
           <Text className="text-lg text-yellow-300 font-semibold">Winner</Text>
           <Text className="text-2xl font-bold text-white mt-1">{rankings[0].name}</Text>
           <Text className="text-slate-400 mt-1">
@@ -54,13 +54,13 @@ export default function BattleResultsScreen() {
                 i === 2 ? "bg-orange-500" :
                 "bg-slate-800"
               }`}>
-                {i === 0 ? <Crown size={24} color="#422006" /> : <Text className="font-bold text-lg text-white">{p.rank}</Text>}
+                {i === 0 ? <Text className="text-2xl">👑</Text> : <Text className="font-bold text-lg text-white">{p.rank}</Text>}
               </View>
               <View>
                 <Text className="font-bold text-lg text-white">{p.name}</Text>
                 <View className="flex-row items-center gap-3 mt-1">
-                  <View className="flex-row items-center gap-1"><Target size={12} color="#94a3b8" /><Text className="text-xs text-slate-400">{p.accuracy}%</Text></View>
-                  <View className="flex-row items-center gap-1"><Zap size={12} color="#94a3b8" /><Text className="text-xs text-slate-400">Streak {p.max_streak}</Text></View>
+                  <View className="flex-row items-center gap-1"><Text className="text-xs">🎯</Text><Text className="text-xs text-slate-400">{p.accuracy}%</Text></View>
+                  <View className="flex-row items-center gap-1"><Text className="text-xs">⚡</Text><Text className="text-xs text-slate-400">Streak {p.max_streak}</Text></View>
                 </View>
               </View>
             </View>
@@ -74,12 +74,12 @@ export default function BattleResultsScreen() {
 
       <View className="flex-row gap-4">
         <Pressable onPress={() => { store.resetGame(); router.replace('/battle/lobby'); }} className="flex-1 py-4 rounded-xl bg-indigo-600 active:bg-indigo-500 flex-row justify-center items-center gap-2">
-          <Swords size={20} color="#fff" />
+          <Text className="text-xl text-white">⚔️</Text>
           <Text className="font-semibold text-white">New Battle</Text>
         </Pressable>
         <Pressable onPress={() => { store.resetGame(); router.replace('/'); }} className="flex-1 py-4 rounded-xl bg-slate-800 active:bg-slate-700 border border-slate-700 flex-row justify-center items-center gap-2">
           <Text className="font-semibold text-white">Home</Text>
-          <ArrowRight size={20} color="#fff" />
+          <Text className="text-xl text-white">➡️</Text>
         </Pressable>
       </View>
     </ScrollView>
