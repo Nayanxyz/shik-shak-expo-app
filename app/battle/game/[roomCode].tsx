@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { View, Text, Pressable, ScrollView, Modal } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
-import { Swords, Clock, Trophy, Zap, LogOut, AlertTriangle, RefreshCw, CheckCircle, XCircle, Crown, Target } from 'lucide-react-native';
+// 🚨 Lucide completely removed to protect the Android SVG engine
 import { getSocket, disconnectSocket } from '../../../lib/socket';
 import { useGameStore } from '../../../store/gameStore';
 import { useAuthStore } from '../../../store/authStore';
@@ -29,7 +29,6 @@ export default function BattleGameScreen() {
   const nextQuestionTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const listenersAttached = useRef(false);
 
-
   const handleExit = () => {
     const socket = getSocket();
     if (socket && roomCode) {
@@ -48,7 +47,7 @@ export default function BattleGameScreen() {
         <View className="flex-1 bg-black/70 justify-center items-center p-4">
           <View className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md space-y-4">
             <View className="flex-row items-center gap-3">
-              <AlertTriangle size={24} color="#facc15" />
+              <Text className="text-2xl">⚠️</Text>
               <Text className="text-xl font-bold text-yellow-400">Leave Battle?</Text>
             </View>
             <Text className="text-slate-400">{phase === 'finished' ? "Return to lobby? Your results have been saved." : "Leaving forfeits the active battle ranking metrics completely."}</Text>
@@ -57,7 +56,7 @@ export default function BattleGameScreen() {
                 <Text className="font-medium text-white">Stay</Text>
               </Pressable>
               <Pressable onPress={handleExit} className="flex-1 py-3 rounded-xl bg-red-600 flex-row items-center justify-center gap-2">
-                <LogOut size={16} color="#fff" />
+                <Text className="text-white text-lg">🚪</Text>
                 <Text className="font-medium text-white">Leave</Text>
               </Pressable>
             </View>
@@ -68,11 +67,11 @@ export default function BattleGameScreen() {
       <ScrollView className="flex-1" contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
         <View className="flex-row items-center justify-between mb-6">
           <View className="flex-row items-center gap-3">
-            <Swords size={20} color="#818cf8" />
+            <Text className="text-xl">⚔️</Text>
             <Text className="font-semibold text-slate-300">Room: {roomCode}</Text>
           </View>
           <Pressable onPress={() => setShowExitConfirm(true)} className="flex-row items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 border border-slate-700">
-            <LogOut size={16} color="#94a3b8" />
+            <Text className="text-lg">🚪</Text>
             <Text className="text-white text-sm">Exit</Text>
           </Pressable>
         </View>
