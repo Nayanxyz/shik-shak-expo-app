@@ -103,3 +103,17 @@ export default function ResultsScreen() {
         </View>
       </View>
 
+      {/* Accuracy Bar */}
+      <View className="mb-8">
+        <View className="flex-row items-center justify-between mb-2">
+          <Text className="text-sm font-medium text-slate-400">Accuracy</Text>
+          <Text className="text-sm font-bold text-indigo-300">{accuracy}%</Text>
+        </View>
+        <View className="h-4 bg-slate-800 rounded-full overflow-hidden">
+          <View 
+            className={`h-full rounded-full ${accuracy >= 80 ? 'bg-green-500' : accuracy >= 60 ? 'bg-yellow-500' : 'bg-red-500'}`}
+            style={{ width: `${accuracy}%` }} 
+          />
+        </View>
+      </View>
+
