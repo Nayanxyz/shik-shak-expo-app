@@ -61,3 +61,15 @@ export default function ResultsScreen() {
   const wrong = results?.wrong_count || 0;
   const total = correct + wrong;
 
+  return (
+    <ScrollView className="flex-1 bg-slate-950" contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
+      
+      {/* Header */}
+      <View className="items-center mb-8">
+        <View className="w-20 h-20 rounded-full bg-orange-500 items-center justify-center mb-4">
+          <Text className="text-4xl text-white">🏆</Text>
+        </View>
+        <Text className="text-3xl font-bold text-white">Practice Complete!</Text>
+        <Text className="text-slate-400 mt-2">Here's how you performed</Text>
+      </View>
+
