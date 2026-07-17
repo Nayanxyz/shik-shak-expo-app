@@ -33,3 +33,12 @@ export default function ResultsScreen() {
     fetchResults();
   }, [sessionId]);
 
+  if (loading) {
+    return (
+      <View className="flex-1 bg-slate-950 justify-center items-center">
+        <ActivityIndicator size="large" color="#6366f1" className="mb-4" />
+        <Text className="text-slate-400">Loading results...</Text>
+      </View>
+    );
+  }
+
