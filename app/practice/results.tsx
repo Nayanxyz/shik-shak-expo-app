@@ -117,3 +117,18 @@ export default function ResultsScreen() {
         </View>
       </View>
 
+      {/* Performance Message */}
+      <View className={`p-4 rounded-xl border items-center mb-8 ${accuracy >= 80 ? 'bg-green-900/30 border-green-500/20' : accuracy >= 60 ? 'bg-yellow-900/30 border-yellow-500/20' : 'bg-red-900/30 border-red-500/20'}`}>
+        <View className="flex-row items-center justify-center gap-2 mb-2">
+          {accuracy >= 80 ? <Text className="text-xl">⚡</Text> : accuracy >= 60 ? <Text className="text-xl">📈</Text> : <Text className="text-xl">🎯</Text>}
+          <Text className={`font-semibold text-lg ${accuracy >= 80 ? 'text-green-300' : accuracy >= 60 ? 'text-yellow-300' : 'text-red-300'}`}>
+            {accuracy >= 80 ? 'Excellent!' : accuracy >= 60 ? 'Good effort!' : 'Keep practicing!'}
+          </Text>
+        </View>
+        <Text className="text-sm text-center text-slate-300">
+          {accuracy >= 80 ? 'You mastered these concepts. Ready for a harder difficulty?' :
+           accuracy >= 60 ? 'You\'re getting there. Review the explanations and try again!' :
+           'Don\'t give up! Practice makes perfect. Try foundation level first.'}
+        </Text>
+      </View>
+
