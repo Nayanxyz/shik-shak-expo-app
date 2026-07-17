@@ -79,3 +79,27 @@ export default function ResultsScreen() {
         <Text className="text-slate-400 mt-2">Total Score</Text>
       </View>
 
+      {/* Stats Grid */}
+      <View className="flex-row flex-wrap justify-between gap-y-4 mb-8">
+        <View className="w-[48%] p-4 rounded-xl bg-green-900/30 border border-green-500/20 items-center">
+          <Text className="text-2xl mb-2">✅</Text>
+          <Text className="text-2xl font-bold text-green-300">{correct}</Text>
+          <Text className="text-xs text-slate-400">Correct</Text>
+        </View>
+        <View className="w-[48%] p-4 rounded-xl bg-red-900/30 border border-red-500/20 items-center">
+          <Text className="text-2xl mb-2">❌</Text>
+          <Text className="text-2xl font-bold text-red-300">{wrong}</Text>
+          <Text className="text-xs text-slate-400">Wrong</Text>
+        </View>
+        <View className="w-[48%] p-4 rounded-xl bg-blue-900/30 border border-blue-500/20 items-center">
+          <Text className="text-2xl mb-2">🎯</Text>
+          <Text className="text-2xl font-bold text-blue-300">{total}</Text>
+          <Text className="text-xs text-slate-400">Total</Text>
+        </View>
+        <View className="w-[48%] p-4 rounded-xl bg-indigo-900/30 border border-indigo-500/20 items-center">
+          <Text className="text-2xl mb-2">🎯</Text>
+          <Text className="text-2xl font-bold text-indigo-300">{accuracy}%</Text>
+          <Text className="text-xs text-slate-400">Accuracy</Text>
+        </View>
+      </View>
+
