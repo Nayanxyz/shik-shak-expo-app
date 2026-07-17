@@ -13,3 +13,23 @@ export default function ResultsScreen() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    if (!sessionId) {
+      router.replace('/practice');
+      return;
+    }
+    
+    const fetchResults = async () => {
+      try {
+        const data = await apiFetch(`/api/v1/practice/${sessionId}/results`);
+        setResults(data);
+      } catch (e: any) {
+        setError(e.message || "Failed to fetch results.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchResults();
+  }, [sessionId]);
+
