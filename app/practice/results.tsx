@@ -55,3 +55,9 @@ export default function ResultsScreen() {
     );
   }
 
+  const accuracy = results?.accuracy || 0;
+  const totalScore = results?.total_score || 0;
+  const correct = results?.correct_count || 0;
+  const wrong = results?.wrong_count || 0;
+  const total = correct + wrong;
+
