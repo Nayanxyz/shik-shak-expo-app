@@ -132,3 +132,18 @@ export default function ResultsScreen() {
         </Text>
       </View>
 
+      {/* Actions */}
+      <View className="flex-row gap-4">
+        <Pressable onPress={() => router.replace('/practice')} className="flex-1 py-4 rounded-xl bg-indigo-600 active:bg-indigo-500 flex-row items-center justify-center gap-2">
+          <Text className="text-xl text-white">🔄</Text>
+          <Text className="font-semibold text-white">Again</Text>
+        </Pressable>
+        <Pressable onPress={() => router.replace('/battle/lobby')} className="flex-1 py-4 rounded-xl bg-slate-800 active:bg-slate-700 border border-slate-700 flex-row items-center justify-center gap-2">
+          <Text className="font-semibold text-white">Battle</Text>
+          <Text className="text-xl text-white">➡️</Text>
+        </Pressable>
+      </View>
+
+    </ScrollView>
+  );
+}
