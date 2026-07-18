@@ -1,7 +1,6 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { View, Text, Pressable, ScrollView, Modal } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
-// 🚨 Lucide completely removed to protect the Android SVG engine
 import { getSocket, disconnectSocket } from '../../../lib/socket';
 import { useGameStore } from '../../../store/gameStore';
 import { useAuthStore } from '../../../store/authStore';
@@ -12,72 +11,72 @@ export default function BattleGameScreen() {
   const store = useGameStore();
   const authUser = useAuthStore((s) => s.user);
 
-  const [phase, setPhase] = useState<'playing' | 'results' | 'leaderboard' | 'finished'>('playing');
+  const [phase, setPhase] = useState<'waiting' | 'playing' | 'results' | 'leaderboard' | 'finished'>('waiting');
+  const [currentQuestion, setCurrentQuestion] = useState<any>(null);
+  const [timeLeft, setTimeLeft] = useState(60);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [notification, setNotification] = useState<string | null>(null);
-  const [forfeitMessage, setForfeitMessage] = useState<string | null>(null);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [answerResult, setAnswerResult] = useState<any>(null);
   const [leaderboard, setLeaderboard] = useState<any[]>([]);
-  const [finalRankings, setFinalRankings] = useState<any[]>([]);
   const [nextQuestionIn, setNextQuestionIn] = useState(3);
   const [showExitConfirm, setShowExitConfirm] = useState(false);
-  const [disconnected, setDisconnected] = useState(false);
-  const [error, setError] = useState('');
+  const [forfeitMessage, setForfeitMessage] = useState<string | null>(null);
 
   const startTimeRef = useRef<number>(0);
   const nextQuestionTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const listenersAttached = useRef(false);
 
-  const handleExit = () => {
+  useEffect(() => {
     const socket = getSocket();
-    if (socket && roomCode) {
-      socket.emit('leave_room', { room_code: (roomCode as string).toUpperCase() });
-    }
-    disconnectSocket();
-    store.resetGame();
-    router.replace('/'); 
-  };
+    if (listenersAttached.current) return;
+    listenersAttached.current = true;
 
-  const question = store.questions[0];
+    socket.on('question_start', (data: any) => {
+      setCurrentQuestion(data);
+      setPhase('playing');
+      setSelectedOption(null);
+      setHasAnswered(false);
+      setAnswerResult(null);
+      setTimeLeft(data.time_limit);
+      startTimeRef.current = Date.now();
+    });
 
-  return (
-    <View className="flex-1 bg-slate-950">
-      <Modal transparent visible={showExitConfirm} animationType="fade">
-        <View className="flex-1 bg-black/70 justify-center items-center p-4">
-          <View className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md space-y-4">
-            <View className="flex-row items-center gap-3">
-              <Text className="text-2xl">⚠️</Text>
-              <Text className="text-xl font-bold text-yellow-400">Leave Battle?</Text>
-            </View>
-            <Text className="text-slate-400">{phase === 'finished' ? "Return to lobby? Your results have been saved." : "Leaving forfeits the active battle ranking metrics completely."}</Text>
-            <View className="flex-row gap-3 mt-4">
-              <Pressable onPress={() => setShowExitConfirm(false)} className="flex-1 py-3 rounded-xl bg-slate-800 items-center">
-                <Text className="font-medium text-white">Stay</Text>
-              </Pressable>
-              <Pressable onPress={handleExit} className="flex-1 py-3 rounded-xl bg-red-600 flex-row items-center justify-center gap-2">
-                <Text className="text-white text-lg">🚪</Text>
-                <Text className="font-medium text-white">Leave</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </Modal>
+    socket.on('timer_tick', (data: any) => {
+      setTimeLeft(data.remaining);
+    });
 
-      <ScrollView className="flex-1" contentContainerStyle={{ padding: 16, paddingBottom: 40 }}>
-        <View className="flex-row items-center justify-between mb-6">
-          <View className="flex-row items-center gap-3">
-            <Text className="text-xl">⚔️</Text>
-            <Text className="font-semibold text-slate-300">Room: {roomCode}</Text>
-          </View>
-          <Pressable onPress={() => setShowExitConfirm(true)} className="flex-row items-center gap-2 px-4 py-2 rounded-xl bg-slate-800 border border-slate-700">
-            <Text className="text-lg">🚪</Text>
-            <Text className="text-white text-sm">Exit</Text>
-          </Pressable>
-        </View>
+    socket.on('question_results', (data: any) => {
+      setPhase('results');
+      setAnswerResult(data);
+    });
 
-        {/* Use Native Modals or conditional Views for the rest of the game phases (Playing, Leaderboard, Finished) using the same View mappings from Practice mode. */}
-      </ScrollView>
-    </View>
-  );
-}
+    socket.on('leaderboard', (data: any) => {
+      setPhase('leaderboard');
+      setLeaderboard(data.rankings);
+      setNextQuestionIn(data.next_question_in);
+      
+      let ticks = data.next_question_in;
+      if (nextQuestionTimerRef.current) clearInterval(nextQuestionTimerRef.current);
+      nextQuestionTimerRef.current = setInterval(() => {
+        ticks -= 1;
+        setNextQuestionIn(ticks);
+        if (ticks <= 0) {
+          if (nextQuestionTimerRef.current) clearInterval(nextQuestionTimerRef.current);
+        }
+      }, 1000);
+    });
+
+    socket.on('game_over', (data: any) => {
+      setPhase('finished');
+      // Push final rankings to Zustand store so the Results screen can read them
+      useGameStore.setState({ finalRankings: data.final_rankings });
+      
+      setTimeout(() => {
+        router.replace(`/battle/results/${roomCode}`);
+      }, 2000);
+    });
+
+    socket.on('room_forfeited', (data: any) => {
+      setForfeitMessage(data.message);
+    });
+
