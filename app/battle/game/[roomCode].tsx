@@ -80,3 +80,42 @@ export default function BattleGameScreen() {
       setForfeitMessage(data.message);
     });
 
+    return () => {
+      socket.off('question_start');
+      socket.off('timer_tick');
+      socket.off('question_results');
+      socket.off('leaderboard');
+      socket.off('game_over');
+      socket.off('room_forfeited');
+      if (nextQuestionTimerRef.current) clearInterval(nextQuestionTimerRef.current);
+      listenersAttached.current = false;
+    };
+  }, [roomCode]);
+
+  const submitAnswer = (optionId: string) => {
+    if (hasAnswered || phase !== 'playing') return;
+    
+    setSelectedOption(optionId);
+    setHasAnswered(true);
+
+    const timeTaken = Date.now() - startTimeRef.current;
+    const socket = getSocket();
+    
+    socket.emit('submit_answer', {
+      room_code: roomCode,
+      question_number: currentQuestion?.question_number,
+      selected_option: optionId,
+      time_taken_ms: timeTaken
+    });
+  };
+
+  const handleExit = () => {
+    const socket = getSocket();
+    if (socket && roomCode) {
+      socket.emit('leave_room', { room_code: (roomCode as string).toUpperCase() });
+    }
+    disconnectSocket();
+    store.resetGame();
+    router.replace('/'); 
+  };
+
