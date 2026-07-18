@@ -1,41 +1,38 @@
 import { io, Socket } from 'socket.io-client';
 
-const SOCKET_URL = process.env.EXPO_PUBLIC_API_URL;
 let socket: Socket | null = null;
+const BACKEND_URL = 'https://shik-shak-webapp-api.onrender.com'; 
 
-export function getSocket(): Socket {
+export const getSocket = () => {
   if (!socket) {
-    socket = io(SOCKET_URL, {
+    socket = io(BACKEND_URL, {
       path: '/socket.io/',
-      transports: ['websocket'], // FIX: Forced websocket for React Native
+      transports: ['websocket'],
       withCredentials: true,
-      reconnection: true,
-      reconnectionAttempts: 10,
-      reconnectionDelay: 1000,
-      reconnectionDelayMax: 5000,
-      randomizationFactor: 0.5,
-      autoConnect: false,
+      
+      // 🚨 THE MAGIC FIX: Spoof the origin header!
+      // Replace this URL with your EXACT Vercel WebApp URL
+      extraHeaders: {
+        "Origin": "https://shik-shak-ui.vercel.app" 
+      },
+      
+      autoConnect: true,
+      forceNew: true,
     });
     
-    socket.on('disconnect', () => {
-      console.log('Socket disconnected');
-    });
+    socket.on('connect', () => console.log('✅ Socket Connected! ID:', socket?.id));
+    socket.on('connect_error', (err) => console.log('❌ Socket Error:', err.message));
   }
-  
-  if (!socket.connected) {
-    socket.connect();
-  }
-  
   return socket;
-}
+};
 
-export function disconnectSocket() {
+export const disconnectSocket = () => {
   if (socket) {
     socket.disconnect();
-    socket.removeAllListeners();
+    socket.removeAllListeners();       // Restored from your original code
     socket = null;
   }
-}
+};
 
 export function isSocketConnected(): boolean {
   return socket !== null && socket.connected;
