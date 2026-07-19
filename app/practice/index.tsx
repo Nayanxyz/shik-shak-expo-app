@@ -265,7 +265,7 @@ export default function PracticeScreen() {
                 <Text className="text-white font-medium">Stay</Text>
               </Pressable>
               <Pressable onPress={handleLeavePractice} className="flex-1 py-3 rounded-xl bg-red-600 active:bg-red-500 items-center justify-center flex-row gap-2">
-                <Text className="text-white">Exit</Text>
+                <Text className="text-white">🚪</Text>
                 <Text className="text-white font-medium">Leave</Text>
               </Pressable>
             </View>
@@ -367,7 +367,7 @@ export default function PracticeScreen() {
               <Text className={`font-mono text-sm ${timeRemaining <= 10 ? 'text-red-300' : 'text-slate-200'}`}>{timeRemaining}s</Text>
             </View>
             <Pressable onPress={() => setShowExitConfirm(true)} className="flex-row items-center gap-2 px-3 py-2 rounded-xl bg-slate-800 border border-slate-700">
-              <Text className="text-lg">🚪</Text>
+              <Text className="text-lg">Exit🚪</Text>
             </Pressable>
           </View>
           
