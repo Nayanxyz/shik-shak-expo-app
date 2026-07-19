@@ -265,7 +265,7 @@ export default function PracticeScreen() {
                 <Text className="text-white font-medium">Stay</Text>
               </Pressable>
               <Pressable onPress={handleLeavePractice} className="flex-1 py-3 rounded-xl bg-red-600 active:bg-red-500 items-center justify-center flex-row gap-2">
-                <Text className="text-white">🚪</Text>
+                <Text className="text-white">Exit</Text>
                 <Text className="text-white font-medium">Leave</Text>
               </Pressable>
             </View>
