@@ -1,11 +1,8 @@
 import * as Linking from 'expo-linking';
-import * as WebBrowser from 'expo-web-browser';
 import 'react-native-url-polyfill/auto'; // Required for Supabase in React Native
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
-
-// Required for web browser to close automatically when redirected back
-WebBrowser.maybeCompleteAuthSession();
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
@@ -21,6 +18,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     persistSession: true,
     detectSessionInUrl: false, // Keep false, we handle deep links manually
   },
+});
+
+// Configure Google Sign-In with your Web Client ID
+GoogleSignin.configure({
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID,
 });
 
 export const signUpWithEmail = async (email: string, password: string, username: string) => {
@@ -51,43 +53,41 @@ export const signInWithEmail = async (email: string, password: string) => {
   return { data, error };
 };
 
+// 🚨 Native Google Sign-In (Bypasses Web Browser entirely)
 export const signInWithGoogle = async () => {
-  const redirectUrl = Linking.createURL('/');
-  
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'google',
-    options: { 
-      redirectTo: redirectUrl,
-      skipBrowserRedirect: true, 
+  try {
+    await GoogleSignin.hasPlayServices();
+    
+    // Triggers the native Android bottom-sheet
+    const response = await GoogleSignin.signIn();
+    
+    let idToken: string | null | undefined = null;
+
+    // Type-safe check for newer v13+ SDK
+    if (response.type === 'success') {
+      idToken = response.data.idToken;
+    } else if (response.type === 'cancelled') {
+      return { data: null, error: new Error("Sign-in was cancelled.") };
+    } else {
+      // Fallback for older SDK versions
+      idToken = (response as any).idToken || (response as any).data?.idToken;
     }
-  });
 
-  if (error) return { data, error };
-
-  if (!data || !('url' in data) || !data.url) {
-    return { data: null, error: new Error("No URL returned from Supabase.") };
-  }
-
-  const result = await WebBrowser.openAuthSessionAsync(data.url, redirectUrl);
-
-  if (result.type === 'success' && result.url) {
-    const hash = result.url.split('#')[1];
-    if (hash) {
-      const params = new URLSearchParams(hash); 
-      const access_token = params.get('access_token');
-      const refresh_token = params.get('refresh_token');
-
-      if (access_token && refresh_token) {
-        const sessionResult = await supabase.auth.setSession({
-          access_token,
-          refresh_token,
-        });
-        return sessionResult;
-      }
+    if (!idToken) {
+      return { data: null, error: new Error("No ID token found from Google.") };
     }
+
+    // Authenticate with Supabase using the Native token
+    const { data, error } = await supabase.auth.signInWithIdToken({
+      provider: 'google',
+      token: idToken,
+    });
+
+    return { data, error };
+  } catch (error: any) {
+    console.error("Native Google Sign-In Error:", error);
+    return { data: null, error };
   }
-  
-  return { data: null, error: new Error("Google sign-in was cancelled or failed.") };
 };
 
 export const signOut = async () => {
