@@ -1,5 +1,6 @@
 import { ScrollView, View, Text, Pressable } from 'react-native';
 import { router } from 'expo-router';
+
 // 🚨 Lucide completely removed to protect the Android SVG engine
 
 const features = [
@@ -21,19 +22,19 @@ export default function HomeScreen() {
     <ScrollView className="flex-1 bg-slate-950" contentContainerStyle={{ paddingBottom: 40 }}>
       <View className="space-y-12">
         
-        {/* Hero */}
-        <View className="items-center py-12 px-4">
+        {/* Hero Section */}
+        <View className="items-center pt-8 pb-4 px-4">
           <View className="flex-row items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-6">
             <Text className="text-sm">✨</Text>
             <Text className="text-indigo-300 text-sm">Powered by Nayanxyz</Text>
           </View>
           
-          <Text className="text-5xl font-bold text-center text-indigo-400 mb-6">
-            Shik-Shak Arena
+          <Text className="text-5xl font-bold text-center text-white mb-6">
+            The Ultimate Arena
           </Text>
           
           <Text className="text-lg text-center text-slate-400 mb-10 leading-relaxed">
-            The ultimate competitive exam battleground. Practice solo or battle friends with AI-generated JEE/NEET questions.
+            Practice solo or battle friends with AI-generated JEE/NEET questions.
           </Text>
           
           <View className="w-full gap-4">
