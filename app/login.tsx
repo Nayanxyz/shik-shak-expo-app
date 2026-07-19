@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { View, Text, TextInput, Pressable, Platform, ActivityIndicator, KeyboardAvoidingView, ScrollView } from 'react-native';
 import { router } from 'expo-router';
+import * as Linking from 'expo-linking'; // 🚨 Added Expo Linking
 import { signUpWithEmail, signInWithEmail, signInWithGoogle } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 
@@ -46,13 +47,13 @@ export default function LoginScreen() {
     setLoading(true);
     setError('');
     
-    // REMOVED: The Platform restriction checking block has been removed
-    // to allow native app runtimes (iOS/Android) to call the OAuth module.
+    // 🚨 Notice it is now completely empty inside the parentheses!
     const { error: googleError } = await signInWithGoogle();
+    
     if (googleError) {
       setError(googleError.message);
     } else {
-      await loadUser();
+      await loadUser(); // Assuming you have this from your authStore
       router.replace('/');
     }
     
@@ -64,7 +65,6 @@ export default function LoginScreen() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       className="flex-1 bg-slate-950"
     >
-      {/* Change justifycontent to justifyContent */}
         <ScrollView 
           contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingHorizontal: 16 }}
           keyboardShouldPersistTaps="handled"
